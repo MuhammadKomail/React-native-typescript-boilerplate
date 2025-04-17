@@ -44,7 +44,7 @@
     "react-native-blob-util": "^0.21.2",
     "react-native-collapsible": "^1.6.2",
     "react-native-config": "^1.5.5",
-    "react-native-date-picker": "git+https://github.com/badrey/react-native-date-picker.git#new-arc-fix",
+    "react-native-date-picker": "^5.0.12",
     "react-native-gesture-handler": "^2.21.2",
     "react-native-get-location": "^5.0.0",
     "react-native-get-random-values": "^1.11.0",
