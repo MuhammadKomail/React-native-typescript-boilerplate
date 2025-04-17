@@ -5,7 +5,7 @@ import CustomDropdown from '../../components/dropdown';
 import icon from '../../assets/images/icon.png';
 import Button from '../../components/button';
 import navigate from '../../navigation/navigationService';
-import {useAppSelector, useAppDispatch, RootState} from '../../redux/store';
+import {useAppDispatch} from '../../redux/store';
 import {changeLanguage} from '../../redux/slices/translationSlice/translationSlice';
 import {useTranslation} from 'react-i18next';
 import RNRestart from 'react-native-restart';
@@ -18,9 +18,6 @@ const LanguageSelection = () => {
   const {t, i18n} = useTranslation();
 
   // Redux state and dispatch
-  const {language} = useAppSelector(
-    (state: RootState) => state.translationState,
-  );
   const dispatch = useAppDispatch();
 
   // Language selection handler

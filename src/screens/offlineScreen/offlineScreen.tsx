@@ -1,18 +1,10 @@
 import React from 'react';
-import {Text, View, Image} from 'react-native';
-import {imgPath, defaultStyles} from '../../styles/style';
+import {Text, View, Image, StyleSheet} from 'react-native';
+import {imgPath, defaultStyles, colors} from '../../styles/style';
 
 const OfflineScreen = () => {
   return (
-    <View
-      style={{
-        alignItems: 'center',
-        backgroundColor: 'white',
-        display: 'flex',
-        flex: 1,
-        paddingVertical: '40%',
-        gap: 20,
-      }}>
+    <View style={styles.container}>
       <Image
         source={imgPath.internet}
         resizeMode="contain"
@@ -28,3 +20,14 @@ const OfflineScreen = () => {
 };
 
 export default OfflineScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: colors.white,
+    display: 'flex',
+    paddingVertical: '40%',
+    gap: 20,
+  },
+});
