@@ -50,127 +50,140 @@ interface TicketItemProps {
 
 const ChatScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const [searchMessage, setSearchMessage] = useState("");
+  const [searchMessage, setSearchMessage] = useState('');
   const [filteredChatList, setFilteredChatList] = useState<ChatData[]>([]);
 
   // Demo data
   const demoChats: ChatData[] = [
     {
       chatId: '1',
-      chats: [{ 
-        id: '1', 
-        name: 'John Doe',
-        description: 'Software Developer',
-        dpUrl: 'https://example.com/avatar1.jpg',
-        expiryMins: 60,
-        isActive: true,
-        isArchived: false,
-        createdBy: 'system',
-        createdDate: new Date(),
-        updatedBy: 'system',
-        updatedDate: new Date()
-      }],
-      messages: [{
-        id: '1',
-        name: 'Message 1',
-        data: 'Hey, how are you?',
-        isRead: false,
-        isActive: true,
-        isArchived: false,
-        createdDate: new Date(),
-        createdBy: 'system',
-        updatedDate: new Date(),
-        updatedBy: 'system'
-      }]
+      chats: [
+        {
+          id: '1',
+          name: 'John Doe',
+          description: 'Software Developer',
+          dpUrl: 'https://example.com/avatar1.jpg',
+          expiryMins: 60,
+          isActive: true,
+          isArchived: false,
+          createdBy: 'system',
+          createdDate: new Date(),
+          updatedBy: 'system',
+          updatedDate: new Date(),
+        },
+      ],
+      messages: [
+        {
+          id: '1',
+          name: 'Message 1',
+          data: 'Hey, how are you?',
+          isRead: false,
+          isActive: true,
+          isArchived: false,
+          createdDate: new Date(),
+          createdBy: 'system',
+          updatedDate: new Date(),
+          updatedBy: 'system',
+        },
+      ],
     },
     {
       chatId: '2',
-      chats: [{ 
-        id: '2', 
-        name: 'Alice Smith',
-        description: 'Project Manager',
-        dpUrl: 'https://example.com/avatar2.jpg',
-        expiryMins: 60,
-        isActive: true,
-        isArchived: false,
-        createdBy: 'system',
-        createdDate: new Date(),
-        updatedBy: 'system',
-        updatedDate: new Date()
-      }],
-      messages: [{
-        id: '2',
-        name: 'Message 2',
-        data: 'Can you help me with the project?',
-        isRead: false,
-        isActive: true,
-        isArchived: false,
-        createdDate: new Date(),
-        createdBy: 'system',
-        updatedDate: new Date(),
-        updatedBy: 'system'
-      }]
+      chats: [
+        {
+          id: '2',
+          name: 'Alice Smith',
+          description: 'Project Manager',
+          dpUrl: 'https://example.com/avatar2.jpg',
+          expiryMins: 60,
+          isActive: true,
+          isArchived: false,
+          createdBy: 'system',
+          createdDate: new Date(),
+          updatedBy: 'system',
+          updatedDate: new Date(),
+        },
+      ],
+      messages: [
+        {
+          id: '2',
+          name: 'Message 2',
+          data: 'Can you help me with the project?',
+          isRead: false,
+          isActive: true,
+          isArchived: false,
+          createdDate: new Date(),
+          createdBy: 'system',
+          updatedDate: new Date(),
+          updatedBy: 'system',
+        },
+      ],
     },
     {
       chatId: '3',
-      chats: [{ 
-        id: '3', 
-        name: 'Bob Johnson',
-        description: 'Team Lead',
-        dpUrl: 'https://example.com/avatar3.jpg',
-        expiryMins: 60,
-        isActive: true,
-        isArchived: false,
-        createdBy: 'system',
-        createdDate: new Date(),
-        updatedBy: 'system',
-        updatedDate: new Date()
-      }],
-      messages: [{
-        id: '3',
-        name: 'Message 3',
-        data: 'Meeting at 3 PM today',
-        isRead: false,
-        isActive: true,
-        isArchived: false,
-        createdDate: new Date(),
-        createdBy: 'system',
-        updatedDate: new Date(),
-        updatedBy: 'system'
-      }]
+      chats: [
+        {
+          id: '3',
+          name: 'Bob Johnson',
+          description: 'Team Lead',
+          dpUrl: 'https://example.com/avatar3.jpg',
+          expiryMins: 60,
+          isActive: true,
+          isArchived: false,
+          createdBy: 'system',
+          createdDate: new Date(),
+          updatedBy: 'system',
+          updatedDate: new Date(),
+        },
+      ],
+      messages: [
+        {
+          id: '3',
+          name: 'Message 3',
+          data: 'Meeting at 3 PM today',
+          isRead: false,
+          isActive: true,
+          isArchived: false,
+          createdDate: new Date(),
+          createdBy: 'system',
+          updatedDate: new Date(),
+          updatedBy: 'system',
+        },
+      ],
     },
     {
       chatId: '4',
-      chats: [{ 
-        id: '4', 
-        name: 'Emma Wilson',
-        description: 'UX Designer',
-        dpUrl: 'https://example.com/avatar4.jpg',
-        expiryMins: 60,
-        isActive: true,
-        isArchived: false,
-        createdBy: 'system',
-        createdDate: new Date(),
-        updatedBy: 'system',
-        updatedDate: new Date()
-      }],
-      messages: [{
-        id: '4',
-        name: 'Message 4',
-        data: 'Thanks for your help!',
-        isRead: false,
-        isActive: true,
-        isArchived: false,
-        createdDate: new Date(),
-        createdBy: 'system',
-        updatedDate: new Date(),
-        updatedBy: 'system'
-      }]
-    }
+      chats: [
+        {
+          id: '4',
+          name: 'Emma Wilson',
+          description: 'UX Designer',
+          dpUrl: 'https://example.com/avatar4.jpg',
+          expiryMins: 60,
+          isActive: true,
+          isArchived: false,
+          createdBy: 'system',
+          createdDate: new Date(),
+          updatedBy: 'system',
+          updatedDate: new Date(),
+        },
+      ],
+      messages: [
+        {
+          id: '4',
+          name: 'Message 4',
+          data: 'Thanks for your help!',
+          isRead: false,
+          isActive: true,
+          isArchived: false,
+          createdDate: new Date(),
+          createdBy: 'system',
+          updatedDate: new Date(),
+          updatedBy: 'system',
+        },
+      ],
+    },
   ];
-
-  // console.log('List all chat response::',listAllChatsResponse)
-  console.log('demo chat list:', demoChats);
 
   // Note: Handling navigation here...!
   const navigation =
@@ -195,7 +208,7 @@ const ChatScreen = () => {
   // Note: Function to filter chat list based on search input
   useEffect(() => {
     const filteredList = demoChats.filter(item =>
-      item.chats[0].name.toLowerCase().includes(searchMessage.toLowerCase())
+      item.chats[0].name.toLowerCase().includes(searchMessage.toLowerCase()),
     );
     setFilteredChatList(filteredList);
   }, [searchMessage]);
@@ -204,7 +217,7 @@ const ChatScreen = () => {
     return (
       <TouchableOpacity
         onPress={() => {
-          goToMessageScreen(item);
+          // goToMessageScreen(item);
         }}
         style={styles.ticketContainer}>
         <View style={styles.iconContainer}>
@@ -234,16 +247,13 @@ const ChatScreen = () => {
     );
   };
 
-
-
   // Note: Function to go to Create Chat Screen...!
   const goToCreateChat = () => {
     navigation.navigate('create-chat-screen');
   };
 
   // Note: Function to go to Chat Message Screen...!
-  const goToMessageScreen = (item: ChatData) => {
-    console.log('item to send msg',item)
+  const goToMessageScreen = () => {
     // navigation.navigate('message-screen', {chatData: item});
   };
 
@@ -341,7 +351,7 @@ const styles = StyleSheet.create({
     padding: 15,
     // borderRadius: 10,
     borderBottomWidth: 1,
-    borderBottomColor: colors.grayHue
+    borderBottomColor: colors.grayHue,
   },
   iconContainer: {
     width: 40,

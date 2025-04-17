@@ -15,19 +15,19 @@ interface SelectionListProps {
 }
 
 const formatCurrency = (amount: number) => {
-  return amount?.toLocaleString('en-US', { style: 'currency', currency: 'SAR' });
+  return amount?.toLocaleString('en-US', {style: 'currency', currency: 'SAR'});
 };
 
 // Sample data
 const sampleServices: Service[] = [
-  { id: '1', name: 'Basic Maintenance', price: 150 },
-  { id: '2', name: 'Water Heater Repair', price: 250 },
-  { id: '3', name: 'Pipe Leakage Fix', price: 180 },
-  { id: '4', name: 'Drain Cleaning', price: 120 },
-  { id: '5', name: 'Faucet Replacement', price: 90 },
-  { id: '6', name: 'Toilet Repair', price: 200 },
-  { id: '7', name: 'Water Pressure Check', price: 80 },
-  { id: '8', name: 'Shower Installation', price: 350 },
+  {id: '1', name: 'Basic Maintenance', price: 150},
+  {id: '2', name: 'Water Heater Repair', price: 250},
+  {id: '3', name: 'Pipe Leakage Fix', price: 180},
+  {id: '4', name: 'Drain Cleaning', price: 120},
+  {id: '5', name: 'Faucet Replacement', price: 90},
+  {id: '6', name: 'Toilet Repair', price: 200},
+  {id: '7', name: 'Water Pressure Check', price: 80},
+  {id: '8', name: 'Shower Installation', price: 350},
 ];
 
 const SelectionList: React.FC<SelectionListProps> = ({
@@ -48,18 +48,14 @@ const SelectionList: React.FC<SelectionListProps> = ({
   };
 
   const filteredServices = services.filter(service =>
-    service.name.toLowerCase().includes(searchQuery.toLowerCase())
+    service.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const renderServiceItem = ({item}: {item: Service}) => {
     const isSelected = selectedServices.some(service => service.id === item.id);
     return (
       <View style={styles.serviceItem}>
-        <Checkbox
-          checked={isSelected}
-          onPress={() => toggleService(item)}
-          style={{marginRight: 10}}
-        />
+        <Checkbox checked={isSelected} onPress={() => toggleService(item)} />
         <View style={styles.textContainer}>
           <Text style={styles.serviceText}>{item.name}</Text>
           <Text style={styles.priceText}>{formatCurrency(item.price)}</Text>

@@ -1,14 +1,11 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
-import {imgPath, colors, typography, defaultStyles} from '../styles/style';
+import {DrawerContentScrollView} from '@react-navigation/drawer';
+import {imgPath, colors, defaultStyles} from '../styles/style';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
-import { useAppDispatch } from '../redux/store';
-import { logout } from '../redux/slices/authSlice/authSlice';
+import {useAppDispatch} from '../redux/store';
+import {logout} from '../redux/slices/authSlice/authSlice';
 
 type RootDrawerParamList = {
   Home: undefined;
@@ -20,11 +17,11 @@ type RootDrawerParamList = {
 
 type DrawerItemType = {
   name: string;
-  icon: any;
+  icon: unknown;
   route: keyof RootDrawerParamList;
 };
-import { showToast } from '../utils/toast';
-import { tokenStorage } from '../services/storage';
+import {showToast} from '../utils/toast';
+import {tokenStorage} from '../services/storage';
 
 // Note: Upper Drawer Data...!
 const upperDrawerData: DrawerItemType[] = [
@@ -32,7 +29,7 @@ const upperDrawerData: DrawerItemType[] = [
     name: 'Home',
     icon: imgPath.home,
     route: 'Home',
-  }
+  },
 ];
 
 // Note: Bottom Drawer Data...!
@@ -41,10 +38,10 @@ const bottomDrawerData: DrawerItemType[] = [
     name: 'Help & Support',
     icon: imgPath.help,
     route: 'help-screen',
-  }
+  },
 ];
 
-const CustomDrawer = (props: any) => {
+const CustomDrawer = (props: unknown) => {
   // Note: Handeling navigation here...!
   const navigation = useNavigation<DrawerNavigationProp<RootDrawerParamList>>();
   const dispatch = useAppDispatch();
@@ -54,7 +51,7 @@ const CustomDrawer = (props: any) => {
     navigation.dispatch(DrawerActions.closeDrawer());
   };
 
-  // Note: Logout user...! 
+  // Note: Logout user...!
   const handleLogout = () => {
     closeDrawer();
     // Dispatch Redux logout action
@@ -64,38 +61,38 @@ const CustomDrawer = (props: any) => {
     // Show success message
     showToast({
       type: 'success',
-      message: "Logged out successfully",
+      message: 'Logged out successfully',
     });
     // Navigate to login screen
     // navigation.navigate('login-screen');
-  }
+  };
 
   return (
     <DrawerContentScrollView
       {...props}
-      contentContainerStyle={{flexGrow: 1, marginLeft: 10}}>
+      contentContainerStyle={styles.drawerContentContainer}>
       {/* Header Section */}
       <TouchableOpacity onPress={closeDrawer} style={defaultStyles.drawerClose}>
         <Image style={defaultStyles.drawerIcon} source={imgPath.arrow} />
       </TouchableOpacity>
 
-      <View style={{flexGrow: 1}}>
+      <View style={styles.flexGrow}>
         {/* Drawer Items */}
         <Text style={defaultStyles.drawerHeading}>Account</Text>
         {upperDrawerData.map((item, index) => {
           return (
             <TouchableOpacity
               key={index}
-              style={[defaultStyles.drawerItem, { paddingVertical: 10 }]}
+              style={[defaultStyles.drawerItem, styles.drawerItemPadding]}
               onPress={() => {
                 if (item.route) {
                   navigation.navigate(item.route);
                 }
               }}>
-              <Image 
-                source={item.icon} 
-                style={[defaultStyles.drawerIcon, { width: 24, height: 24 }]}
-                resizeMode='contain'
+              <Image
+                source={item.icon}
+                style={[defaultStyles.drawerIcon, styles.drawerIconSmall]}
+                resizeMode="contain"
               />
               <Text style={defaultStyles.drawerText}>{item.name}</Text>
             </TouchableOpacity>
@@ -106,16 +103,16 @@ const CustomDrawer = (props: any) => {
           return (
             <TouchableOpacity
               key={index}
-              style={[defaultStyles.drawerItem, { paddingVertical: 10 }]}
+              style={[defaultStyles.drawerItem, styles.drawerItemPadding]}
               onPress={() => {
                 // if (item.route) {
-                  // navigation.navigate(item.route);
+                // navigation.navigate(item.route);
                 // }
               }}>
-              <Image 
-                source={item.icon} 
-                style={[defaultStyles.drawerIcon, { width: 24, height: 24 }]}
-                resizeMode='contain'
+              <Image
+                source={item.icon}
+                style={[defaultStyles.drawerIcon, styles.drawerIconSmall]}
+                resizeMode="contain"
               />
               <Text style={defaultStyles.drawerText}>{item.name}</Text>
             </TouchableOpacity>
@@ -125,9 +122,13 @@ const CustomDrawer = (props: any) => {
 
       {/* Logout Button */}
       <TouchableOpacity onPress={handleLogout} style={styles.logoutBtn}>
-        <Image source={imgPath.logout} resizeMode='contain' style={defaultStyles.drawerIcon} />
+        <Image
+          source={imgPath.logout}
+          resizeMode="contain"
+          style={defaultStyles.drawerIcon}
+        />
 
-        <Text style={[defaultStyles.drawerText, {color: colors.tertiary}]}>
+        <Text style={[defaultStyles.drawerText, styles.logoutText]}>
           Logout
         </Text>
       </TouchableOpacity>
@@ -138,45 +139,31 @@ const CustomDrawer = (props: any) => {
 export default CustomDrawer;
 
 const styles = StyleSheet.create({
-  header: {
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f4f4f4',
+  drawerContentContainer: {
+    flexGrow: 1,
+    marginLeft: 10,
   },
-  profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginBottom: 10,
+  flexGrow: {
+    flexGrow: 1,
   },
-  userName: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  drawerItemPadding: {
+    paddingVertical: 10,
   },
-  userEmail: {
-    fontSize: 14,
-    color: '#666',
+  drawerIconSmall: {
+    width: 24,
+    height: 24,
   },
-  footer: {
-    borderTopWidth: 1,
-    borderTopColor: '#ddd',
-    padding: 10,
+  logoutText: {
+    color: colors.tertiary,
   },
-  footerButton: {
-    padding: 10,
-    alignItems: 'center',
-  },
-  footerButtonText: {
-    fontSize: 16,
-    color: '#007BFF',
-  },
+
   logoutBtn: {
     padding: 15,
     marginBottom: 10,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
     backgroundColor: colors.lightGray,
-    flexDirection:'row',
+    flexDirection: 'row',
     gap: 10,
     borderRadius: 8,
   },

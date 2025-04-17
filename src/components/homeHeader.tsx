@@ -7,10 +7,7 @@ interface HomeHeaderProps {
   drawer: () => void;
 }
 
-const HomeHeader: React.FC<HomeHeaderProps> = ({
-  title,
-  drawer
-}) => {
+const HomeHeader: React.FC<HomeHeaderProps> = ({title, drawer}) => {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.leftContainer}>
@@ -24,9 +21,7 @@ const HomeHeader: React.FC<HomeHeaderProps> = ({
           <Text style={styles.headerSubTitle}>Welcome to ajeek</Text>
         </View>
       </View>
-      <TouchableOpacity
-        onPress={drawer}
-        style={styles.rightContainer}>
+      <TouchableOpacity onPress={drawer} style={styles.rightContainer}>
         <Image
           source={imgPath.menuIcon}
           style={defaultStyles.menuIcon}

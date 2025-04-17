@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { colors } from '../styles/style';
+import {View, StyleSheet} from 'react-native';
+import {colors} from '../styles/style';
 
 const Separator = () => {
   return <View style={styles.separator} />;

@@ -120,10 +120,10 @@ const SparePartsSuggestion: React.FC<SparePartsSuggestionProps> = ({
         onChangeText={handleSearch}
       />
       {loading && (
-        <ActivityIndicator 
-          size="small" 
-          color={colors.tertiary} 
-          style={{marginVertical: 10}}
+        <ActivityIndicator
+          size="small"
+          color={colors.tertiary}
+          style={styles.loadingIndicator}
         />
       )}
       <View style={styles.grid}>
@@ -170,15 +170,15 @@ const SparePartsSuggestion: React.FC<SparePartsSuggestionProps> = ({
           </TouchableOpacity>
         ))}
       </View>
-      <Button 
-        title={btnText} 
+      <Button
+        title={btnText}
         onPress={() => {
           if (selectedSpareParts.length > 0) {
             setModalVisible(true);
           } else {
-            console.log('Please select spare parts first');
+            // TODO: Show user feedback (e.g., Toast) if needed
           }
-        }} 
+        }}
       />
     </View>
   );
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 10,
     borderRadius: 8,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     borderTopWidth: 1,
     borderTopColor: colors.grayHue,
     padding: 10,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     marginVertical: typography.fontSizes.size10,
   },
   cardDefault: {
-    borderColor: '#ccc',
+    borderColor: colors.gray,
   },
   cardSelected: {
     borderColor: colors.tertiary,
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     marginRight: typography.fontSizes.size10,
   },
   partPrice: {
-    color: '#666',
+    color: colors.gray,
     fontSize: typography.fontSizes.size14,
   },
   checkboxOuter: {
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     borderColor: colors.tertiary,
   },
   checkboxDefault: {
-    borderColor: '#ccc',
+    borderColor: colors.gray,
   },
   checkboxInner: {
     width: typography.fontSizes.size10,
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     resizeMode: 'contain',
-    backgroundColor: '#e0e0e0',
+    backgroundColor: colors.grayHue,
     borderRadius: 5,
   },
   searchInput: {
@@ -276,5 +276,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+  },
+  loadingIndicator: {
+    marginVertical: 10,
   },
 });

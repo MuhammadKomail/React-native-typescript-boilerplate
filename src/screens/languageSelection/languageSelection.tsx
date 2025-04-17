@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, I18nManager } from 'react-native';
-import { colors, typography, defaultStyles } from '../../styles/style';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image, I18nManager} from 'react-native';
+import {colors, typography, defaultStyles} from '../../styles/style';
 import CustomDropdown from '../../components/dropdown';
 import icon from '../../assets/images/icon.png';
 import Button from '../../components/button';
 import navigate from '../../navigation/navigationService';
-import { useAppSelector, useAppDispatch, RootState } from '../../redux/store';
-import { changeLanguage } from '../../redux/slices/translationSlice/translationSlice';
-import { useTranslation } from 'react-i18next';
+import {useAppSelector, useAppDispatch, RootState} from '../../redux/store';
+import {changeLanguage} from '../../redux/slices/translationSlice/translationSlice';
+import {useTranslation} from 'react-i18next';
 import RNRestart from 'react-native-restart';
 
 const LanguageSelection = () => {
@@ -15,18 +15,17 @@ const LanguageSelection = () => {
   const [languageSelection, setLanguageSelection] = useState<string | ''>('');
 
   // Translation hook
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
   // Redux state and dispatch
-  const { language } = useAppSelector((state: RootState) => state.translationState);
+  const {language} = useAppSelector(
+    (state: RootState) => state.translationState,
+  );
   const dispatch = useAppDispatch();
-
-  console.log('language update', language);
 
   // Language selection handler
   const handleSelect = (item: string) => {
-    console.log('Selected item:', item);
-    const languageMap: { [key: string]: string } = {
+    const languageMap: {[key: string]: string} = {
       English: 'en',
       Arabic: 'ar',
       Urdu: 'ur',
@@ -65,7 +64,13 @@ const LanguageSelection = () => {
           {t('Select Your Preferred Language')}
         </Text>
         <CustomDropdown
-          data={[t('English'), t('Arabic'), t('Urdu'), t('Bengali'), t('Hindi')]}
+          data={[
+            t('English'),
+            t('Arabic'),
+            t('Urdu'),
+            t('Bengali'),
+            t('Hindi'),
+          ]}
           onSelect={handleSelect}
           maxVisibleItems={3}
           width={320}
@@ -104,7 +109,6 @@ const styles = StyleSheet.create({
     color: colors.black,
     textAlign: 'center',
   },
-
 });
 
 export default LanguageSelection;

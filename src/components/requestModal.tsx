@@ -1,5 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image, ActivityIndicator} from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import Modal from 'react-native-modal';
 import {colors, imgPath, typography} from '../styles/style';
 
@@ -9,16 +16,15 @@ interface RequestModalProps {
   onSubmit: () => void;
   onClose: () => void;
   onLoading: boolean;
-  title: string
+  title: string;
 }
 
 const RequestModal: React.FC<RequestModalProps> = ({
   visible,
   setVisible,
   onSubmit,
-  onClose,
   onLoading,
-  title
+  title,
 }) => {
   const toggleModal = () => {
     setVisible(!visible);
@@ -56,28 +62,13 @@ const RequestModal: React.FC<RequestModalProps> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  showButton: {
-    padding: 10,
-    backgroundColor: '#3498db',
-    borderRadius: 5,
-  },
-  showButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
-    // width: 300,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 10,
     alignItems: 'center',
   },
@@ -92,8 +83,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   description: {
+    color: colors.gray, // replaced '#7f8c8d'
     fontSize: 14,
-    color: '#7f8c8d',
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -102,23 +93,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.tertiary,
-    fontFamily: typography.fontFamilies.mullish,
-    paddingVertical: 10,
-    paddingHorizontal: 80,
-    // width: '80%',
     borderRadius: 5,
+    fontFamily: typography.fontFamilies.mullish,
     marginBottom: 10,
+    paddingHorizontal: 80,
+    paddingVertical: 10,
+    // width: '80%',
   },
   buttonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 16,
-  },
-  linkButton: {
-    marginTop: 10,
-  },
-  linkText: {
-    color: '#3498db',
-    fontSize: 14,
   },
 });
 

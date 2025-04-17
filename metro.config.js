@@ -1,5 +1,7 @@
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
-const { wrapWithReanimatedMetroConfig } = require('react-native-reanimated/metro-config');
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
+const {
+  wrapWithReanimatedMetroConfig,
+} = require('react-native-reanimated/metro-config');
 
 // Default Metro configuration
 const defaultConfig = getDefaultConfig(__dirname);
@@ -10,7 +12,7 @@ const customConfig = {
     // Ensure Metro resolves WebSocket-related modules
     extraNodeModules: {
       ...require('node-libs-react-native'),
-    ws: require.resolve('react-native-websocket'),
+      ws: require.resolve('react-native-websocket'),
     },
   },
   transformer: {

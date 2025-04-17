@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import type {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/homeScreen/homeScreen';
 import ProfileScreen from '../screens/profileScreen/profileScreen';
 import colors from '../styles/colors';
@@ -17,23 +18,31 @@ import ChatScreen from '../screens/chatScreen/chatScreen';
 const {width} = Dimensions.get('window');
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
-const CustomTabBar = ({
-  state,
-  descriptors,
-  navigation,
-}: {
-  state: any;
-  descriptors: any;
-  navigation: any;
-}) => {
+const getIconName = (routeName: string, focused: boolean) => {
+  switch (routeName) {
+    case 'Home':
+      return focused ? 'home-sharp' : 'home-outline';
+    case 'Alerts':
+      return focused ? 'notifications-sharp' : 'notifications-outline';
+    case 'Tickets':
+      return 'ticket-sharp';
+    case 'Profile':
+      return focused ? 'person-sharp' : 'person-outline';
+    case 'Chats':
+      return focused ? 'chatbox-sharp' : 'chatbox-outline';
+    default:
+      return 'ellipse-outline';
+  }
+};
+
+const CustomTabBar = (props: BottomTabBarProps) => {
+  const {state, descriptors, navigation} = props;
   // Note: Fetching data from redux...!
   // const {authenticatedUser} = useAppSelector(
   //   (state: RootState) => state.authState,
   // );
-  // console.log('AUTHENTICATED USER', authenticatedUser);
 
   // const {ticketList} = useAppSelector((state: RootState) => state.ticketState);
-  // console.log('Ticket List in bottom drawer:',ticketList)
 
   // Note: Handeling dispatch here...!
   // const dispatch = useAppDispatch();
@@ -54,12 +63,11 @@ const CustomTabBar = ({
     <View style={styles.tabContainer}>
       {/* Render visible tabs */}
       {state.routes
-        .filter((route: any) => {
-          const tabBarButton = descriptors[route.key].options.tabBarButton;
-          return typeof tabBarButton !== 'function' || tabBarButton() !== null;
-        })
+        .filter(
+          (route: any) => descriptors[route.key].options.tabBarButton == null,
+        )
         .map((route: {key: string; name: string}, index: number) => {
-          const {options} = descriptors[route.key];
+          // const {options} = descriptors[route.key];
           const isFocused = state.index === index;
 
           const onPress = () => {
@@ -70,11 +78,11 @@ const CustomTabBar = ({
             });
 
             if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
+              (navigation as any).navigate(route.name);
             }
           };
 
-          const showBadge = route.name === 'Alerts';
+          // const showBadge = route.name === 'Alerts';
           // const badgeCount = ticketList?.length || 0;
 
           return (
@@ -82,11 +90,11 @@ const CustomTabBar = ({
               key={route.key}
               onPress={onPress}
               style={styles.tabButton}>
-              <View style={{position: 'relative'}}>
+              <View style={styles.iconWrapper}>
                 <Icon
                   name={getIconName(route.name, isFocused)}
                   size={24}
-                  color={isFocused ? colors.primary : '#aaa'}
+                  color={isFocused ? colors.primary : colors.gray}
                 />
                 {/* {showBadge && badgeCount > 0 && (
                   <View style={styles.badge}>
@@ -95,7 +103,7 @@ const CustomTabBar = ({
                 )} */}
               </View>
               <Text style={[styles.tabText, isFocused && styles.focusedText]}>
-                {options.tabBarLabel || route.name}
+                {route.name}
               </Text>
             </TouchableOpacity>
           );
@@ -103,7 +111,7 @@ const CustomTabBar = ({
 
       {/* Middle Button */}
       <TouchableOpacity
-        onPress={() => navigation.navigate('Profile')}
+        onPress={() => navigation.navigate('Profile', undefined)}
         style={styles.middleButtonContainer}>
         <View style={styles.middleButton}>
           <Icon name="ticket-outline" size={28} color="#fff" />
@@ -130,7 +138,7 @@ const styles = StyleSheet.create({
   tabContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     elevation: 5,
     height: 90,
     paddingBottom: 10,
@@ -148,7 +156,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 40,
     left: width / 2 - 37,
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 80,
     padding: 5,
     zIndex: 10,
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   tabText: {
-    color: '#aaa',
+    color: colors.gray,
     fontSize: 12,
     marginTop: 5,
   },
@@ -171,40 +179,9 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: 'bold',
   },
-  badge: {
-    position: 'absolute',
-    top: -5,
-    right: -10,
-    backgroundColor: '#E63946',
-    borderRadius: 10,
-    height: 18,
-    minWidth: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 4,
-  },
-  badgeText: {
-    color: '#fff',
-    fontSize: 10,
-    fontWeight: 'bold',
+  iconWrapper: {
+    position: 'relative',
   },
 });
 
 export default BottomTab;
-const getIconName = (routeName: string, focused: boolean) => {
-  switch (routeName) {
-    case 'Home':
-      return focused ? 'home-sharp' : 'home-outline';
-    case 'Alerts':
-      return focused ? 'notifications-sharp' : 'notifications-outline';
-    case 'Tickets':
-      return 'ticket-sharp';
-    case 'Profile':
-      return focused ? 'person-sharp' : 'person-outline';
-    case 'Chats':
-      return focused ? 'chatbox-sharp' : 'chatbox-outline';
-    default:
-      return 'ellipse-outline';
-  }
-};
-

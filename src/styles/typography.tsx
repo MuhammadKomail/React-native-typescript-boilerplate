@@ -30,13 +30,13 @@ const typography = {
     regular: 18,
     large: 20,
     extraLarge: 24,
-  },  
+  },
 
   fontWeights: {
-    regular400: '400' as '400',
-    regular600: '600' as '600',
-    regular700: '700' as '700',
-    bold: 'bold' as 'bold',
+    regular400: '400' as const,
+    regular600: '600' as const,
+    regular700: '700' as const,
+    bold: 'bold' as const,
   },
 
   fontFamilies: {
@@ -45,11 +45,10 @@ const typography = {
   },
 
   alignments: {
-    center: 'center' as 'center',
-    start: 'flex-start' as 'flex-start',
-    end: 'flex-end' as 'flex-end',
+    center: 'center' as const,
+    start: 'flex-start' as const,
+    end: 'flex-end' as const,
   },
-  
 };
 
 export default typography;

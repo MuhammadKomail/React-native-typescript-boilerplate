@@ -1,4 +1,4 @@
-import { useToast } from 'react-native-toast-notifications';
+import {useToast} from 'react-native-toast-notifications';
 
 let toastRef: ReturnType<typeof useToast> | null = null;
 
@@ -31,6 +31,5 @@ export const showToast = ({
       placement: position,
     });
   } else {
-    console.warn('Toast instance is not initialized.');
   }
 };

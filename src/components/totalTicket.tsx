@@ -9,71 +9,53 @@ interface TotalTicketComponentProps {
 // Sample data
 const sampleData = {
   totalTickets: 15,
-  completedTickets: 8
+  completedTickets: 8,
 };
+
+const SkeletonLoader = () => (
+  <View>
+    <View style={styles.ticketCardContainer}>
+      {[1, 2].map((_, index) => (
+        <View key={index} style={styles.ticketCard}>
+          <View style={styles.cardRow}>
+            <View style={styles.skeletonBarSmall} />
+          </View>
+          <View style={styles.cardRow}>
+            <View style={styles.skeletonBarLarge} />
+          </View>
+        </View>
+      ))}
+    </View>
+  </View>
+);
+
+const MainContent = () => (
+  <View>
+    <Text style={styles.ticketHeading}>Dashboard</Text>
+    <View style={styles.ticketCardContainer}>
+      <View style={styles.ticketCard}>
+        <View style={styles.cardRow}>
+          <Text style={styles.ticketCardTitle}>Total Tickets</Text>
+        </View>
+        <View style={styles.cardRow}>
+          <Text style={styles.rowText}>{sampleData.totalTickets}</Text>
+        </View>
+      </View>
+      <View style={styles.ticketCard}>
+        <View style={styles.cardRow}>
+          <Text style={styles.ticketCardTitle}>Tickets Completed</Text>
+        </View>
+        <View style={styles.cardRow}>
+          <Text style={styles.rowText}>{sampleData.completedTickets}</Text>
+        </View>
+      </View>
+    </View>
+  </View>
+);
 
 const TotalTicketComponent: React.FC<TotalTicketComponentProps> = ({
   isLoading = false,
 }) => {
-  // Skeleton Loading Component
-  const SkeletonLoader = () => (
-    <View>
-      <View style={styles.ticketCardContainer}>
-        {[1, 2].map((_, index) => (
-          <View key={index} style={styles.ticketCard}>
-            <View style={styles.cardRow}>
-              <View
-                style={{
-                  backgroundColor: colors.grayHue,
-                  height: 17,
-                  width: '70%',
-                  borderRadius: 4,
-                }}
-              />
-            </View>
-            <View style={styles.cardRow}>
-              <View
-                style={{
-                  backgroundColor: colors.grayHue,
-                  height: 30,
-                  width: '40%',
-                  borderRadius: 4,
-                }}
-              />
-            </View>
-          </View>
-        ))}
-      </View>
-    </View>
-  );
-
-  // Main Content Component
-  const MainContent = () => (
-    <View>
-      <Text style={styles.ticketHeading}>Dashboard</Text>
-      <View style={styles.ticketCardContainer}>
-        <View style={styles.ticketCard}>
-          <View style={styles.cardRow}>
-            <Text style={styles.ticketCardTitle}>Total Tickets</Text>
-          </View>
-          <View style={styles.cardRow}>
-            <Text style={styles.rowText}>{sampleData.totalTickets}</Text>
-          </View>
-        </View>
-        <View style={styles.ticketCard}>
-          <View style={styles.cardRow}>
-            <Text style={styles.ticketCardTitle}>Tickets Completed</Text>
-          </View>
-          <View style={styles.cardRow}>
-            <Text style={styles.rowText}>
-              {sampleData.completedTickets}
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-
   return isLoading ? <SkeletonLoader /> : <MainContent />;
 };
 
@@ -116,9 +98,17 @@ const styles = StyleSheet.create({
     fontFamily: typography.fontFamilies.mullish,
     fontWeight: typography.fontWeights.regular700,
   },
-  spanText: {
-    fontSize: typography.fontSizes.size14,
-    fontFamily: typography.fontFamilies.mullish,
-    fontWeight: typography.fontWeights.regular700,
+
+  skeletonBarSmall: {
+    backgroundColor: colors.grayHue,
+    height: 17,
+    width: '70%',
+    borderRadius: 4,
+  },
+  skeletonBarLarge: {
+    backgroundColor: colors.grayHue,
+    height: 30,
+    width: '40%',
+    borderRadius: 4,
   },
 });

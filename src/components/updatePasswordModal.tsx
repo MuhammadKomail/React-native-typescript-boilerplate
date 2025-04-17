@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {Dispatch, SetStateAction} from 'react';
 import Button from './button';
-import {typography, imgPath, colors} from '../styles/style';
+import {typography, colors} from '../styles/style';
 
 interface UpdatePasswordModalProps {
   visible: boolean;
@@ -23,7 +23,7 @@ interface UpdatePasswordModalProps {
 
 const UpdatePasswordModal: React.FC<UpdatePasswordModalProps> = ({
   visible,
-  loading,
+
   onSubmit,
   onClose,
   setPasswords,
@@ -37,14 +37,9 @@ const UpdatePasswordModal: React.FC<UpdatePasswordModalProps> = ({
       onRequestClose={onClose}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <Text></Text>
-            <TouchableOpacity style={{flex: 1, alignItems:'flex-end'}} onPress={onClose}>
+          <View style={styles.headerRow}>
+            <Text />
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
               <Text style={[styles.title, styles.titleRight]}>X</Text>
             </TouchableOpacity>
           </View>
@@ -82,11 +77,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+    backgroundColor: colors.overlay, // Semi-transparent background
   },
   modalContent: {
     width: '80%',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 10,
     padding: 20,
     elevation: 5,
@@ -112,20 +107,20 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     paddingHorizontal: 10,
   },
-  button: {
-    backgroundColor: '#00BFFF',
-    borderRadius: 5,
-    paddingVertical: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
+
   label: {
     fontFamily: typography.fontFamilies.mullish,
     fontWeight: '500',
     fontSize: typography.fontSizes.size14,
     paddingBottom: 7,
+  },
+  headerRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  closeButton: {
+    flex: 1,
+    alignItems: 'flex-end',
   },
 });

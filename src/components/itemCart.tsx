@@ -25,19 +25,20 @@ interface SparePartsInStockProps {
 const SparePartsInStock: React.FC<SparePartsInStockProps> = ({
   items = sampleItems, // Default to sample items if none provided
 }) => {
-  const [selectedItems, setSelectedItems] = useState<{[key: string]: number}>({});
+  const [selectedItems, setSelectedItems] = useState<{[key: string]: number}>(
+    {},
+  );
 
   const toggleSelect = (part: SparePart) => {
     setSelectedItems(prev => {
       const newSelected = {...prev};
-      
+
       if (newSelected[part.id]) {
         delete newSelected[part.id];
       } else {
         newSelected[part.id] = 1;
       }
-      
-      console.log('After toggle:', newSelected);
+
       return newSelected;
     });
   };
@@ -45,21 +46,21 @@ const SparePartsInStock: React.FC<SparePartsInStockProps> = ({
   const updateQuantity = (partId: string, increment: boolean) => {
     setSelectedItems(prev => {
       const newSelected = {...prev};
-      
+
       if (!newSelected[partId]) return prev;
-      
+
       const part = items.find(p => p.id === partId);
       if (!part) return prev;
-      
+
       const currentQty = newSelected[partId];
       const maxQty = part.stock;
-      
+
       if (increment && currentQty < maxQty) {
         newSelected[partId] = currentQty + 1;
       } else if (!increment && currentQty > 1) {
         newSelected[partId] = currentQty - 1;
       }
-      
+
       return newSelected;
     });
   };
@@ -94,7 +95,7 @@ const SparePartsInStock: React.FC<SparePartsInStockProps> = ({
                 </View>
                 <Text style={styles.stock}>In Stock: {part.stock}</Text>
                 <View style={styles.quantityContainer}>
-                  <View style={{display: 'flex', flexDirection: 'row'}}>
+                  <View>
                     <TouchableOpacity
                       onPress={
                         isMinusDisabled
@@ -173,7 +174,6 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
     padding: 10,
     borderRadius: 10,
     marginVertical: 5,
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
-    backgroundColor: '#e0e0e0',
     borderRadius: 10,
   },
   detailsContainer: {
@@ -210,7 +209,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderRadius: 15,
-    backgroundColor: '#d3d3d3',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -218,8 +216,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderRadius: 15,
-    backgroundColor: '#e0e0e0',
-    opacity: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -243,19 +239,18 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#1E4C7D',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
   },
   radioSelected: {
-    borderColor: '#1E4C7D',
+    backgroundColor: colors.primary,
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#1E4C7D',
+    backgroundColor: colors.primary,
   },
   partInfoContainer: {
     flexDirection: 'row',

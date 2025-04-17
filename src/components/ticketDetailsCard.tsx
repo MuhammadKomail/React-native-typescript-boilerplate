@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {colors, defaultStyles, typography} from '../styles/style';
+import {colors, defaultStyles} from '../styles/style';
 import Button from './button';
 import BottomSheetComponent from './bottomSheet';
 
@@ -25,7 +25,7 @@ const reasonsData = [
 ];
 
 const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({
-  navigateInspectionScreen = () => console.log('Navigate to inspection screen'),
+  navigateInspectionScreen = () => {},
 }) => {
   const [isBottomSheetVisible, setIsBottomSheetVisible] = useState(false);
 
@@ -36,14 +36,14 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({
 
   return (
     <View>
-      <View style={defaultStyles.innerContainer}></View>
+      <View style={defaultStyles.innerContainer} />
       <Button title="Start Inspection" onPress={navigateInspectionScreen} />
-      <Text style={{paddingTop: 1}}></Text>
+      <Text style={styles.paddingTopOne} />
       <Button
         title="Cancel Ticket Request"
         backgroundColor={colors.white}
-        textColor="red"
-        style={{borderColor: 'red', borderWidth: 1}}
+        textColor={colors.error}
+        style={styles.cancelButton}
         onPress={openBottomSheet}
       />
       <BottomSheetComponent
@@ -59,35 +59,11 @@ const TicketDetailsCard: React.FC<TicketDetailsCardProps> = ({
 export default TicketDetailsCard;
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    marginBottom: '90%',
+  paddingTopOne: {
+    paddingTop: 1,
   },
-  container: {
-    backgroundColor: colors.white,
-    borderWidth: typography.fontSizes.size1,
-    borderColor: colors.grayHue,
-    marginVertical: typography.fontSizes.size10,
-    padding: typography.fontSizes.size10,
-    borderRadius: typography.fontSizes.size8,
-  },
-  descriptionContainer: {
-    paddingTop: typography.fontSizes.size10,
-    borderTopWidth: typography.fontSizes.size1,
-    borderTopColor: colors.grayHue,
-  },
-  issueItem: {
-    marginBottom: typography.fontSizes.regular,
-    alignItems: 'flex-start',
-    justifyContent: typography.alignments.center,
-  },
-  issueTitle: {
-    fontSize: typography.fontSizes.medium,
-    fontWeight: typography.fontWeights.bold,
-    color: colors.black,
-    marginBottom: typography.fontSizes.size4,
-  },
-  issueDescription: {
-    fontSize: typography.fontSizes.medium,
-    color: colors.gray,
+  cancelButton: {
+    borderColor: colors.error,
+    borderWidth: 1,
   },
 });

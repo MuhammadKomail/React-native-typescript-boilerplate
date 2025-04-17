@@ -1,15 +1,16 @@
 import {configureStore} from '@reduxjs/toolkit';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import rootReducer from './slices/rootReducer';
-import { persistStore } from 'redux-persist';
+import {persistStore} from 'redux-persist';
 import logger from 'redux-logger';
 
 // Configure store with proper typing
 const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: false,
-        immutableCheck: false,
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
     }).concat(logger),
 });
 

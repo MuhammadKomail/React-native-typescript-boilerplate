@@ -1,14 +1,27 @@
-import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Alert, I18nManager } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  I18nManager,
+} from 'react-native';
+
+// Styles are used via createRTLAwareStyles for RTL support.
 import React from 'react';
 import Header from '../../components/header';
-import { colors, imgPath } from '../../styles/style';
-import { useAppDispatch, useAppSelector, type RootState } from '../../redux/store';
+import {colors, imgPath} from '../../styles/style';
+import {
+  useAppDispatch,
+  useAppSelector,
+  type RootState,
+} from '../../redux/store';
 import ProfileImage from '../../components/profileImage';
 import Icon from '@react-native-vector-icons/material-icons';
-import { logout } from '../../redux/slices/authSlice/authSlice';
-import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
-import { getDirectionStyles, createRTLAwareStyles } from '../../utils/rtlUtils';
+import {logout} from '../../redux/slices/authSlice/authSlice';
+import {useTranslation} from 'react-i18next';
+import {createRTLAwareStyles} from '../../utils/rtlUtils';
 
 const ProfileScreen = () => {
   const {user, lastLoginDate} = useAppSelector(
@@ -16,15 +29,13 @@ const ProfileScreen = () => {
   );
 
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const isRTL = I18nManager.isRTL;
-  const directionStyles = getDirectionStyles(isRTL);
 
   // Format date function
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return 'N/A';
-    
+
     const date = new Date(dateString);
     return date.toLocaleDateString(isRTL ? 'ar-SA' : 'en-US', {
       year: 'numeric',
@@ -53,7 +64,7 @@ const ProfileScreen = () => {
           style: 'destructive',
         },
       ],
-      { cancelable: true }
+      {cancelable: true},
     );
   };
 
@@ -83,18 +94,18 @@ const ProfileScreen = () => {
 
   return (
     <View style={rtlStyles.container}>
-      <Header title={t("Profile")} screenName="profile-screen" />
-      
+      <Header title={t('Profile')} screenName="profile-screen" />
+
       <ScrollView style={rtlStyles.scrollView}>
         <View style={rtlStyles.content}>
           {/* Profile Image Section */}
           <View style={rtlStyles.imageSection}>
-            <ProfileImage
-              imageSource={user?.profileImage ? { uri: user.profileImage } : imgPath.camera}
-              onCameraPress={() => console.log('Profile picture update')}
-            />
-            <Text style={rtlStyles.userName}>{user?.name || t('User Name')}</Text>
-            <Text style={rtlStyles.userRole}>{user?.role || t('User Role')}</Text>
+            <Text style={rtlStyles.userName}>
+              {user?.name || t('User Name')}
+            </Text>
+            <Text style={rtlStyles.userRole}>
+              {user?.role || t('User Role')}
+            </Text>
           </View>
 
           {/* Last Login Section */}
@@ -102,11 +113,15 @@ const ProfileScreen = () => {
             <Text style={rtlStyles.sectionTitle}>{t('Login Information')}</Text>
             <View style={rtlStyles.detailRow}>
               <Text style={rtlStyles.label}>{t('Last Login')}</Text>
-              <Text style={rtlStyles.value}>{formatDate(lastLoginDate || '')}</Text>
+              <Text style={rtlStyles.value}>
+                {formatDate(lastLoginDate || '')}
+              </Text>
             </View>
             <View style={rtlStyles.detailRow}>
               <Text style={rtlStyles.label}>{t('Join Date')}</Text>
-              <Text style={rtlStyles.value}>{formatDate(user?.joinDate || '')}</Text>
+              <Text style={rtlStyles.value}>
+                {formatDate(user?.joinDate || '')}
+              </Text>
             </View>
           </View>
 
@@ -135,9 +150,11 @@ const ProfileScreen = () => {
               <Text style={rtlStyles.value}>{user?.iqamaId || t('N/A')}</Text>
             </View>
           </View>
-          
+
           {/* Logout Button */}
-          <TouchableOpacity style={rtlStyles.logoutButton} onPress={handleLogout}>
+          <TouchableOpacity
+            style={rtlStyles.logoutButton}
+            onPress={handleLogout}>
             <Icon name="logout" size={24} color={colors.white} />
             <Text style={rtlStyles.logoutText}>{t('Logout')}</Text>
           </TouchableOpacity>
@@ -149,6 +166,7 @@ const ProfileScreen = () => {
 
 export default ProfileScreen;
 
+// NOTE: Unused style warnings can be ignored because styles are used via createRTLAwareStyles (rtlStyles)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -182,8 +200,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: colors.black,
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
@@ -205,13 +223,13 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     color: colors.gray,
-    textAlign: I18nManager.isRTL ? 'right' : 'left' as 'left' | 'right',
+    textAlign: I18nManager.isRTL ? 'right' : ('left' as 'left' | 'right'),
   },
   value: {
     fontSize: 14,
     color: colors.black,
     fontWeight: '500',
-    textAlign: I18nManager.isRTL ? 'right' : 'left' as 'left' | 'right',
+    textAlign: I18nManager.isRTL ? 'right' : ('left' as 'left' | 'right'),
   },
   logoutButton: {
     backgroundColor: colors.primary,

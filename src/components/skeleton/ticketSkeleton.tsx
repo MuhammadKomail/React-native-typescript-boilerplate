@@ -1,6 +1,6 @@
-import { View, StyleSheet } from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import { colors } from '../../styles/style';
+import {colors} from '../../styles/style';
 
 const TicketSkeleton = () => {
   return (
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     shadowColor: colors.gray,
     shadowOpacity: 0.3,
-    shadowOffset: { width: 1, height: 2 },
+    shadowOffset: {width: 1, height: 2},
   },
   skeletonHeader: {
     width: '50%',

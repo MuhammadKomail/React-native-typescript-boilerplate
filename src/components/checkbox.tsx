@@ -11,9 +11,12 @@ interface CheckboxProps {
 const Checkbox: React.FC<CheckboxProps> = ({checked, onPress, style}) => {
   return (
     <TouchableOpacity
-      style={[styles.checkbox, style, {backgroundColor: checked ? colors.tertiary : colors.white}]}
-      onPress={onPress}
-    >
+      style={[
+        styles.checkbox,
+        style,
+        {backgroundColor: checked ? colors.tertiary : colors.white},
+      ]}
+      onPress={onPress}>
       <Text style={{color: colors.white}}>{checked ? '✓' : ''}</Text>
     </TouchableOpacity>
   );
