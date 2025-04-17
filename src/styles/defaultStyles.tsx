@@ -69,7 +69,7 @@ const defaultStyles = StyleSheet.create({
     width: '100%',
     borderRadius: typography.fontSizes.size10,
     marginBottom: 30,
-    shadowColor: '#000',
+    shadowColor: colors.black,
     shadowOffset: {
       width: 0,
       height: 1,
@@ -139,12 +139,12 @@ const defaultStyles = StyleSheet.create({
     overflow: 'hidden',
   },
   priorityBadge: {
-    backgroundColor: '#FFD1D1',
-    color: '#D32F2F',
+    backgroundColor: colors.error,
+    color: colors.black,
   },
   statusBadge: {
-    backgroundColor: '#F9E4B7',
-    color: '#795548',
+    backgroundColor: colors.warning,
+    color: colors.black,
   },
   drawerHeading: {
     color: colors.black,

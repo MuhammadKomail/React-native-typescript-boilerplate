@@ -5,7 +5,7 @@ import {imgPath, defaultStyles} from '../../styles/style';
 import HomeHeader from '../../components/homeHeader';
 import HomeSearch from '../../components/homeSearch';
 import RequestCard from '../../components/requestCard';
-import {useNavigation, DrawerActions} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 
 const HomeScreen = () => {
