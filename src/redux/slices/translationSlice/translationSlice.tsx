@@ -17,8 +17,6 @@ const translationSlice = createSlice({
   initialState,
   reducers: {
     changeLanguage(state, action: PayloadAction<string>) {
-      console.log('ACTION:', action.payload);
-      console.log('STATE:', state.language);
       const language = action.payload;
       state.language = language;
 

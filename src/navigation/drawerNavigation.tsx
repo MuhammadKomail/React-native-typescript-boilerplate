@@ -14,10 +14,7 @@ const DrawerNavigation = () => {
         drawerType: 'front',
         drawerPosition: 'right',
       }}>
-      <Drawer.Screen 
-        name="home-tabs" 
-        component={BottomTab}
-      />
+      <Drawer.Screen name="home-tabs" component={BottomTab} />
     </Drawer.Navigator>
   );
 };

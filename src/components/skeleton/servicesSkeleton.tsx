@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Animated } from 'react-native';
-import { colors, typography } from '../../styles/style';
+import {View, StyleSheet, FlatList} from 'react-native';
+import {colors, typography} from '../../styles/style';
 
 const ServicesSkeleton = () => {
   const renderSkeletonItem = () => (
@@ -43,13 +43,6 @@ const styles = StyleSheet.create({
   },
   serviceText: {
     flex: typography.fontSizes.size1,
-    height: 20,
-    backgroundColor: colors.gray,
-    borderRadius: 4,
-    opacity: 0.3,
-  },
-  priceText: {
-    width: 30,
     height: 20,
     backgroundColor: colors.gray,
     borderRadius: 4,

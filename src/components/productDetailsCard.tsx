@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React from 'react';
-import {colors, typography, defaultStyles} from '../styles/style';
-import SparePartsSuggestion from './sparePartsSuggestion';
+import {defaultStyles} from '../styles/style';
 import Button from './button';
 
-let productDetails = [
+const productDetails = [
   {
     title: 'Samsung Split AC',
     productType: 'AC',
@@ -39,8 +38,8 @@ const ProductDetailsCard = () => {
           </View>
         </View>
         {productDetails.length > 0
-          ? productDetails.map((item, index) => (
-              <View style={defaultStyles.ticketInfoContainer}>
+          ? productDetails.map(item => (
+              <View style={defaultStyles.ticketInfoContainer} key={item.title}>
                 <Text style={defaultStyles.ticketTitle}>{item.title}</Text>
                 <Text style={defaultStyles.itemInfo}>
                   Product Type: {item.productType}
@@ -58,46 +57,9 @@ const ProductDetailsCard = () => {
           : null}
         {/* <SparePartsSuggestion /> */}
       </View>
-      <Button
-        title="Request For Spare Parts"
-        onPress={() => console.log('test')}
-      />
+      <Button title="Request For Spare Parts" onPress={() => {}} />
     </View>
   );
 };
 
 export default ProductDetailsCard;
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    marginBottom: '90%',
-  },
-  container: {
-    backgroundColor: colors.white,
-    borderWidth: typography.fontSizes.size1,
-    borderColor: colors.grayHue,
-    marginVertical: typography.fontSizes.size10,
-    padding: typography.fontSizes.size10,
-    borderRadius: typography.fontSizes.size8,
-  },
-  descriptionContainer: {
-    paddingTop: typography.fontSizes.size10,
-    borderTopWidth: typography.fontSizes.size1,
-    borderTopColor: colors.grayHue,
-  },
-  issueItem: {
-    marginBottom: typography.fontSizes.regular,
-    alignItems: 'flex-start',
-    justifyContent: typography.alignments.center,
-  },
-  issueTitle: {
-    fontSize: typography.fontSizes.medium,
-    fontWeight: typography.fontWeights.bold,
-    color: colors.black,
-    marginBottom: typography.fontSizes.size4,
-  },
-  issueDescription: {
-    fontSize: typography.fontSizes.medium,
-    color: colors.gray,
-  },
-});

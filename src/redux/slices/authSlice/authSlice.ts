@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { showToast } from '../../../utils/toast';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
+import {showToast} from '../../../utils/toast';
 
 // Define types
 interface User {
@@ -36,16 +36,19 @@ const initialState: AuthState = {
 // Async thunk for login
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async (credentials: { username: string; password: string }, { rejectWithValue }) => {
+  async (
+    credentials: {username: string; password: string},
+    {rejectWithValue},
+  ) => {
     try {
       // For now, we'll simulate a successful login
       // Later, replace this with actual API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Get current date for login timestamp
       const currentDate = new Date();
       const formattedDate = currentDate.toISOString();
-      
+
       // Simulated response
       const response = {
         user: {
@@ -61,12 +64,12 @@ export const loginUser = createAsyncThunk(
         token: 'dummy_token',
         lastLoginDate: formattedDate,
       };
-      
+
       return response;
     } catch (error: any) {
       return rejectWithValue(error.message || 'Login failed');
     }
-  }
+  },
 );
 
 // Auth slice
@@ -74,7 +77,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
+    logout: state => {
       state.user = null;
       state.token = null;
       state.error = null;
@@ -82,19 +85,19 @@ const authSlice = createSlice({
     },
     updateUserProfile: (state, action) => {
       if (state.user) {
-        state.user = { ...state.user, ...action.payload };
+        state.user = {...state.user, ...action.payload};
       }
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginUser.pending, state => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.user;
+        // state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
         state.isAuthenticated = true;
@@ -116,5 +119,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, updateUserProfile } = authSlice.actions;
+export const {logout, updateUserProfile} = authSlice.actions;
 export default authSlice.reducer;

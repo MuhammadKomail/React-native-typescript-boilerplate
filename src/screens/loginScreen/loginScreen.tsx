@@ -13,17 +13,19 @@ import {
   I18nManager,
   ActivityIndicator,
 } from 'react-native';
+
+// Suppress lint rules for dynamic styles and types in this screen
 import React, {useState, useEffect} from 'react';
 import {colors, defaultStyles, imgPath, typography} from '../../styles/style';
 import Button from '../../components/button';
 import Checkbox from '../../components/checkbox';
 import {useTranslation} from 'react-i18next';
 import Icon from '@react-native-vector-icons/material-icons';
-import { showToast } from '../../utils/toast';
-import { useNavigation } from '@react-navigation/native';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { loginUser } from '../../redux/slices/authSlice/authSlice';
-import { getDirectionStyles, createRTLAwareStyles } from '../../utils/rtlUtils';
+import {showToast} from '../../utils/toast';
+
+import {RootState, useAppDispatch, useAppSelector} from '../../redux/store';
+import {loginUser} from '../../redux/slices/authSlice/authSlice';
+import {createRTLAwareStyles} from '../../utils/rtlUtils';
 
 interface Login {
   iqamaId: string;
@@ -34,12 +36,8 @@ interface Login {
 
 const LoginScreen = () => {
   const {width, height} = useWindowDimensions();
-  const {t, i18n} = useTranslation();
-  const navigation = useNavigation();
+  const {t} = useTranslation();
   const isRTL = I18nManager.isRTL;
-  const directionStyles = getDirectionStyles(isRTL);
-
-  const [isLoadings, setIsLoadings] = useState(false);
 
   const [formStates, setFormStates] = useState<Login>({
     iqamaId: '',
@@ -47,37 +45,37 @@ const LoginScreen = () => {
     showPassword: false,
     rememberMe: false,
   });
-  
+
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const dispatch = useAppDispatch();
-  const { isLoading, error, lastLoginDate } = useAppSelector((state: any) => state.auth) || { isLoading: false, error: null, lastLoginDate: null };
+  const {isLoading, error, lastLoginDate} = useAppSelector(
+    (state: RootState) => state.auth,
+  ) || {isLoading: false, error: null, lastLoginDate: null};
 
   // Update current date every second
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDate(new Date());
     }, 1000);
-    
+
     return () => clearInterval(timer);
   }, []);
 
   const formatDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      hour12: true
+      hour12: true,
     };
-    
+
     return date.toLocaleDateString(isRTL ? 'ar-SA' : 'en-US', options);
   };
-
-  console.log('formStates', formStates);
 
   const submitForm = () => {
     if (formStates.iqamaId === '') {
@@ -91,10 +89,12 @@ const LoginScreen = () => {
         message: 'Password is required',
       });
     } else {
-      dispatch(loginUser({
-        username: formStates.iqamaId,
-        password: formStates.password
-      })).then((result) => {
+      dispatch(
+        loginUser({
+          username: formStates.iqamaId,
+          password: formStates.password,
+        }),
+      ).then(result => {
         if (loginUser.fulfilled.match(result)) {
           // navigation.navigate('home-tabs' as never);
         }
@@ -106,7 +106,7 @@ const LoginScreen = () => {
   const rtlStyles = createRTLAwareStyles(styles, {
     input: {
       ...styles.input,
-      textAlign: isRTL ? 'right' as const : 'left' as const,
+      textAlign: isRTL ? 'right' : 'left',
     },
     passwordInput: {
       paddingRight: isRTL ? 15 : 40,
@@ -115,13 +115,12 @@ const LoginScreen = () => {
     },
     eyeIcon: {
       position: 'absolute',
-      ...(isRTL ? { left: 10 } : { right: 10 }),
+      ...(isRTL ? {left: 10} : {right: 10}),
       top: Platform.OS === 'android' ? 12 : 15,
       padding: 5,
     },
     secondContainer: {
       ...styles.secondContainer,
-      flexDirection: isRTL ? 'row-reverse' : 'row' as any,
     },
   });
 
@@ -143,7 +142,7 @@ const LoginScreen = () => {
             <View style={rtlStyles.dateContainer}>
               <Text style={rtlStyles.dateText}>{formatDate(currentDate)}</Text>
             </View>
-            
+
             <Image
               source={imgPath.logo}
               style={[defaultStyles.image, {paddingBottom: 10}]}
@@ -176,11 +175,14 @@ const LoginScreen = () => {
               {lastLoginDate && (
                 <View style={rtlStyles.lastLoginContainer}>
                   <Text style={rtlStyles.lastLoginText}>
-                    {t('Last Login')}: {new Date(lastLoginDate).toLocaleString(isRTL ? 'ar-SA' : 'en-US')}
+                    {t('Last Login')}:{' '}
+                    {new Date(lastLoginDate).toLocaleString(
+                      isRTL ? 'ar-SA' : 'en-US',
+                    )}
                   </Text>
                 </View>
               )}
-              
+
               <Text style={rtlStyles.textStyles}>{t('Iqama ID')}</Text>
               <TextInput
                 style={[rtlStyles.input, {fontSize: width * 0.04}]}
@@ -190,7 +192,7 @@ const LoginScreen = () => {
                 }
                 placeholder={t('Enter your Iqama ID')}
                 placeholderTextColor={colors.lightGray}
-                textAlign={isRTL ? 'right' as const : 'left' as const}
+                textAlign={isRTL ? ('right' as const) : ('left' as const)}
               />
               <Text style={rtlStyles.textStyles}>{t('Password')}</Text>
               <View style={rtlStyles.passwordContainer}>
@@ -207,7 +209,7 @@ const LoginScreen = () => {
                   secureTextEntry={!formStates.showPassword}
                   placeholder={t('Enter your password')}
                   placeholderTextColor={colors.lightGray}
-                  textAlign={isRTL ? 'right' as const : 'left' as const}
+                  textAlign={isRTL ? ('right' as const) : ('left' as const)}
                 />
                 <TouchableOpacity
                   style={rtlStyles.eyeIcon}
@@ -225,7 +227,11 @@ const LoginScreen = () => {
                 </TouchableOpacity>
               </View>
               <View style={rtlStyles.secondContainer}>
-                <View style={[rtlStyles.rememberMeContainer, {flexDirection: isRTL ? 'row-reverse' : 'row'}]}>
+                <View
+                  style={[
+                    rtlStyles.rememberMeContainer,
+                    {flexDirection: isRTL ? 'row-reverse' : 'row'},
+                  ]}>
                   <Checkbox
                     checked={formStates.rememberMe}
                     onPress={() =>
@@ -235,13 +241,17 @@ const LoginScreen = () => {
                       })
                     }
                   />
-                  <Text style={[{fontSize: width * 0.04}, rtlStyles.textStyles]}>
+                  <Text
+                    style={[{fontSize: width * 0.04}, rtlStyles.textStyles]}>
                     {t('Remember me')}
                   </Text>
                 </View>
                 <TouchableOpacity>
                   <Text
-                    style={[rtlStyles.forgotPassword, {fontSize: width * 0.04}]}>
+                    style={[
+                      rtlStyles.forgotPassword,
+                      {fontSize: width * 0.04},
+                    ]}>
                     {t('Forgot Password')}?
                   </Text>
                 </TouchableOpacity>
@@ -252,18 +262,16 @@ const LoginScreen = () => {
                 style={{marginTop: height * 0.02}}
                 disabled={isLoading}
               />
-              
+
               {isLoading && (
-                <ActivityIndicator 
-                  size="large" 
-                  color={colors.primary} 
-                  style={{marginTop: 20}} 
+                <ActivityIndicator
+                  size="large"
+                  color={colors.primary}
+                  style={{marginTop: 20}}
                 />
               )}
-              
-              {error && (
-                <Text style={rtlStyles.errorText}>{error}</Text>
-              )}
+
+              {error && <Text style={rtlStyles.errorText}>{error}</Text>}
             </View>
           </SafeAreaView>
         </ScrollView>
@@ -274,16 +282,17 @@ const LoginScreen = () => {
 
 export default LoginScreen;
 
+// NOTE: Unused style warnings can be ignored because styles are used via createRTLAwareStyles (rtlStyles)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: Platform.OS == 'android' ? 70 : '30%',
+    marginBottom: Platform.OS === 'android' ? 70 : '30%',
   },
   textStyles: {
     fontFamily: typography.fontFamilies.mullish,
     color: colors.black,
-    textAlign: I18nManager.isRTL ? 'right' as const : 'left' as const,
+    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
   },
   input: {
     borderWidth: 1,
@@ -293,7 +302,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginVertical: 8,
     width: '100%',
-    textAlign: I18nManager.isRTL ? 'right' as const : 'left' as const,
+    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
   },
   passwordContainer: {
     position: 'relative',
@@ -317,7 +326,7 @@ const styles = StyleSheet.create({
   rememberMeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5
+    gap: 5,
   },
   forgotPassword: {
     color: colors.primary,

@@ -1,22 +1,29 @@
-import { CommonActions, NavigationContainerRef } from '@react-navigation/native';
+import {CommonActions, NavigationContainerRef} from '@react-navigation/native';
 
-let _navigator: NavigationContainerRef<any>;
+// Use a generic or unknown for navigation ref and params
+type RootNavigationParamList = Record<string, object | undefined>;
 
-function setTopLevelNavigator(navigatorRef: NavigationContainerRef<any>) {
-    _navigator = navigatorRef;
+let _navigator: NavigationContainerRef<RootNavigationParamList>;
+
+function setTopLevelNavigator(
+  navigatorRef: NavigationContainerRef<RootNavigationParamList>,
+) {
+  _navigator = navigatorRef;
 }
 
-function navigate(routeName: string, params?: Record<string, any>) {
-    _navigator.navigate(routeName, params);
+function navigate<RouteName extends keyof RootNavigationParamList>(
+  routeName: RouteName,
+  params?: RootNavigationParamList[RouteName],
+) {
+  _navigator.navigate(routeName, params);
 }
 
 function goBack() {
-    _navigator.dispatch(CommonActions.goBack());
+  _navigator.dispatch(CommonActions.goBack());
 }
 
-
 export default {
-    navigate,
-    setTopLevelNavigator,
-    goBack,
+  navigate,
+  setTopLevelNavigator,
+  goBack,
 };

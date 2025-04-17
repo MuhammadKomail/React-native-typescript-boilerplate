@@ -1,7 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, Text, TouchableOpacityProps } from 'react-native';
+import {TouchableOpacity, Text, TouchableOpacityProps} from 'react-native';
 import defaultStyles from '../styles/defaultStyles';
-import { colors } from '../styles/style';
+import {colors} from '../styles/style';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
@@ -10,30 +10,20 @@ interface ButtonProps extends TouchableOpacityProps {
   textColor?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
+const Button: React.FC<ButtonProps> = ({
   title,
-  onPress, 
-  style, 
+  onPress,
+  style,
   backgroundColor = colors.primary,
   textColor = colors.white,
-  ...props 
+  ...props
 }) => {
   return (
     <TouchableOpacity
-      style={[
-        defaultStyles.primaryButton,
-        { backgroundColor },
-        style,
-      ]}
+      style={[defaultStyles.primaryButton, {backgroundColor}, style]}
       onPress={onPress}
-      {...props}
-    >
-      <Text 
-        style={[
-          defaultStyles.primaryButtonText,
-          { color: textColor }
-        ]}
-      >
+      {...props}>
+      <Text style={[defaultStyles.primaryButtonText, {color: textColor}]}>
         {title}
       </Text>
     </TouchableOpacity>

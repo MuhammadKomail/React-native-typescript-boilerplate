@@ -14,14 +14,14 @@ export const pickImage = async (options = {}) => {
   };
 
   return new Promise((resolve, reject) => {
-    const pickerMethod = 
-      defaultOptions.source === 'camera' 
-        ? ImagePicker.launchCamera 
+    const pickerMethod =
+      defaultOptions.source === 'camera'
+        ? ImagePicker.launchCamera
         : ImagePicker.launchImageLibrary;
 
-    pickerMethod(defaultOptions, (response) => {
+    pickerMethod(defaultOptions, response => {
       if (response.didCancel) {
-        resolve({ cancelled: true });
+        resolve({cancelled: true});
       } else if (response.errorCode) {
         reject(new Error(`ImagePicker Error: ${response.errorMessage}`));
       } else {
@@ -49,32 +49,3 @@ export const pickImage = async (options = {}) => {
     });
   });
 };
-
-// Example usage:
-/*
-import { pickImage } from './imagePickerUtils';
-
-// For camera
-const handleCameraPick = async () => {
-  try {
-    const image = await pickImage({ source: 'camera', quality: 0.8 });
-    if (!image.cancelled) {
-      console.log('Captured image:', image);
-    }
-  } catch (error) {
-    console.error('Error capturing image:', error);
-  }
-};
-
-// For gallery
-const handleGalleryPick = async () => {
-  try {
-    const image = await pickImage({ source: 'library', quality: 0.8 });
-    if (!image.cancelled) {
-      console.log('Selected image:', image);
-    }
-  } catch (error) {
-    console.error('Error selecting image:', error);
-  }
-};
-*/

@@ -1,16 +1,15 @@
 {
-    "Choose Your Language": "اختر لغتك",
-    "Select Your Preferred Language": "اختر اللغة المفضلة لديك",
-    "Please choose a language to continue. You can update your language preference anytime in the settings": 
-        "الرجاء اختيار لغة للمتابعة. يمكنك تحديث تفضيلات اللغة الخاصة بك في أي وقت في الإعدادات",
-    "Continue": "يكمل",
-    "Sign into your account": "قم بتسجيل الدخول إلى حسابك",
-    "Enter your Iqama and Password to login": "أدخل الإقامة وكلمة المرور لتسجيل الدخول",
-    "Iqama": "الإقامة",
-    "Password": "كلمة المرور",
-    "Remember me": "تذكرنى",
-    "Forgot Password": "هل نسيت كلمة السر",
-    "Login": "تسجيل الدخول",
-    "Enter your Iqama": "أدخل الإقامة الخاصة بك",
-    "Enter your password": "أدخل كلمة المرور الخاصة بك"
+  "Choose Your Language": "اختر لغتك",
+  "Select Your Preferred Language": "اختر اللغة المفضلة لديك",
+  "Please choose a language to continue. You can update your language preference anytime in the settings": "الرجاء اختيار لغة للمتابعة. يمكنك تحديث تفضيلات اللغة الخاصة بك في أي وقت في الإعدادات",
+  "Continue": "يكمل",
+  "Sign into your account": "قم بتسجيل الدخول إلى حسابك",
+  "Enter your Iqama and Password to login": "أدخل الإقامة وكلمة المرور لتسجيل الدخول",
+  "Iqama": "الإقامة",
+  "Password": "كلمة المرور",
+  "Remember me": "تذكرنى",
+  "Forgot Password": "هل نسيت كلمة السر",
+  "Login": "تسجيل الدخول",
+  "Enter your Iqama": "أدخل الإقامة الخاصة بك",
+  "Enter your password": "أدخل كلمة المرور الخاصة بك"
 }

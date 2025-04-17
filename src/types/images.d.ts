@@ -1,9 +1,9 @@
 declare module '*.png' {
-    const content: any;
-    export default content;
+  const content: number;
+  export default content;
 }
 
 declare module '*.gif' {
-    const content: any;
-    export default content;
+  const content: number;
+  export default content;
 }

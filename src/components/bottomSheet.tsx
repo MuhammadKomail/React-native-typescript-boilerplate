@@ -27,17 +27,15 @@ const BottomSheetComponent: React.FC<BottomSheetComponentProps> = ({
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [inputValue, setInputValue] = useState('');
-  const [reason, setReason] = useState('');
+  const [, setReason] = useState('');
   const [loading, setLoading] = useState(false);
   const [isClosable, setIsClosable] = useState(true);
 
   // Sync the BottomSheet with the `open` state
   useEffect(() => {
     if (open) {
-      console.log('Expanding BottomSheet...');
       bottomSheetRef.current?.expand();
     } else {
-      console.log('Closing BottomSheet...');
       bottomSheetRef.current?.close();
     }
   }, [open]);
@@ -45,7 +43,6 @@ const BottomSheetComponent: React.FC<BottomSheetComponentProps> = ({
   // Handle BottomSheet changes
   const handleSheetChanges = useCallback(
     (index: number) => {
-      console.log('BottomSheet index changed:', index);
       if (index === -1 && isClosable) {
         setBottomSheet(false);
       }
@@ -57,15 +54,14 @@ const BottomSheetComponent: React.FC<BottomSheetComponentProps> = ({
   const cancelTicket = () => {
     setLoading(true);
     setIsClosable(false);
-    
+
     // Simulate API call with timeout
     setTimeout(() => {
       setLoading(false);
       setIsClosable(true);
       setBottomSheet(false);
-      setInputValue("");
-      setReason("");
-      console.log('Ticket cancelled with reason:', reason);
+      setInputValue('');
+      setReason('');
     }, 1500);
   };
 
@@ -78,36 +74,23 @@ const BottomSheetComponent: React.FC<BottomSheetComponentProps> = ({
       index={-1} // Start the BottomSheet in a closed state
     >
       <BottomSheetView style={styles.contentContainer}>
-        <Text style={[defaultStyles.heading2, {alignSelf: 'center'}]}>
-          {title}
-        </Text>
+        <Text style={[defaultStyles.heading2]}>{title}</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
           {list.length > 0
-            ? list.map((item, index) => {
+            ? list.map(item => {
                 return (
                   <TouchableOpacity
                     onPress={() => {
                       setReason(item.reason);
                     }}
-                    style={{marginTop: 10}}
                     key={item.id}>
-                    <Text
-                      style={[
-                        styles.reasonText,
-                        reason === item.reason
-                          ? {backgroundColor: colors.tertiary, color: 'white', borderRadius: 3, padding: 6}
-                          : {}
-                      ]}>
-                      {item.reason}
-                    </Text>
+                    <Text style={[styles.reasonText]}>{item.reason}</Text>
                   </TouchableOpacity>
                 );
               })
             : null}
-          <View style={{marginVertical: 10}}>
-            <Text style={[styles.reasonText, {marginTop: 10}]}>
-              Other(Write details below)
-            </Text>
+          <View>
+            <Text style={[styles.reasonText]}>Other(Write details below)</Text>
             <TextInput
               value={inputValue}
               onChangeText={text => {
@@ -122,23 +105,12 @@ const BottomSheetComponent: React.FC<BottomSheetComponentProps> = ({
             />
           </View>
           {loading ? (
-            <ActivityIndicator
-              size="small"
-              color="red"
-              style={{
-                marginVertical: 15,
-                borderColor: 'red',
-                borderWidth: 1,
-                padding: 10,
-                backgroundColor: 'white',
-              }}
-            />
+            <ActivityIndicator size="small" color="red" />
           ) : (
             <Button
               title="Cancel Ticket Request"
               backgroundColor={colors.white}
               textColor="red"
-              style={{borderColor: 'red', borderWidth: 1, marginVertical: 15}}
               onPress={() => cancelTicket()}
             />
           )}

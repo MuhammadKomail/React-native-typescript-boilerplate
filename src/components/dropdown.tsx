@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -32,33 +32,13 @@ const CustomDropdown = ({
   const ITEM_HEIGHT = 40;
   const MAX_HEIGHT = maxVisibleItems * ITEM_HEIGHT;
 
-  useEffect(() => {
-    // Load the stored language on app start
-    const loadLanguage = async () => {
-      try {
-        const storedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
-        if (storedLanguage) {
-          setSelectedItem(storedLanguage);
-        }
-      } catch (error) {
-        console.error('Failed to load language:', error);
-      }
-    };
-
-    loadLanguage();
-  }, []);
-
   const handleSelect = async (item: string) => {
     if (isAnimating) return;
 
     setSelectedItem(item);
     onSelect(item);
 
-    try {
-      await AsyncStorage.setItem(LANGUAGE_KEY, item);
-    } catch (error) {
-      console.error('Failed to save language:', error);
-    }
+    await AsyncStorage.setItem(LANGUAGE_KEY, item);
 
     setIsAnimating(true);
     Animated.parallel([
@@ -120,9 +100,15 @@ const CustomDropdown = ({
   };
 
   return (
-    <View style={[styles.container, { width }]}>
-      <TouchableOpacity style={styles.dropdownHeader} onPress={toggleDropdown} activeOpacity={0.8}>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.selectedText}>
+    <View style={[styles.container, {width}]}>
+      <TouchableOpacity
+        style={styles.dropdownHeader}
+        onPress={toggleDropdown}
+        activeOpacity={0.8}>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={styles.selectedText}>
           {selectedItem}
         </Text>
         <Animated.View
@@ -135,17 +121,20 @@ const CustomDropdown = ({
                 }),
               },
             ],
-          }}
-        >
+          }}>
           <MaterialIcons name="keyboard-arrow-down" size={24} color="#000" />
         </Animated.View>
       </TouchableOpacity>
-      <Animated.View style={[styles.dropdownContainer, { height: dropdownHeight }]}>
+      <Animated.View style={styles.dropdownContainer}>
         <FlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={styles.item} onPress={() => handleSelect(item)} disabled={isAnimating} activeOpacity={0.7}>
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => handleSelect(item)}
+              disabled={isAnimating}
+              activeOpacity={0.7}>
               <Text style={styles.itemText}>{item}</Text>
             </TouchableOpacity>
           )}
@@ -155,34 +144,40 @@ const CustomDropdown = ({
   );
 };
 
+const COLORS = {
+  white: '#fff',
+  gray: '#ccc',
+  dark: '#333',
+};
+
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
   },
   dropdownHeader: {
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', // Keeps text and icon aligned
-    backgroundColor: '#fff',
-    paddingHorizontal: 15,
-    height: 50,
+    backgroundColor: COLORS.white,
+    borderColor: COLORS.gray,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ccc',
-    marginHorizontal: 15
+    flexDirection: 'row',
+    height: 50,
+    justifyContent: 'space-between', // Keeps text and icon aligned
+    marginHorizontal: 15,
+    paddingHorizontal: 15,
   },
   selectedText: {
+    color: COLORS.dark,
     flex: 1, // Allows text to shrink if necessary
     fontSize: 16,
-    color: '#333',
   },
   dropdownContainer: {
-    overflow: 'hidden',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.white,
+    borderColor: COLORS.gray,
     borderRadius: 8,
-    // borderWidth: 1,
-    borderColor: '#ccc',
     marginTop: 5,
+    overflow: 'hidden',
+    // borderWidth: 1,
   },
   item: {
     height: 40,
@@ -190,8 +185,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   itemText: {
+    color: COLORS.dark,
     fontSize: 16,
-    color: '#333',
   },
 });
 

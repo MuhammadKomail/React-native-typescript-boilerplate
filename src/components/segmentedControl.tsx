@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {colors} from '../styles/style';
 
 interface SegmentedControlProps {
   options: string[];
@@ -13,7 +14,7 @@ interface SegmentedControlProps {
 
 const SegmentedControl = ({
   options = [],
-  onChange = (index: number) => {},
+  onChange = () => {},
   selectedTextColor = '#fff',
   selectedBackgroundColor = '#007BFF',
   nonSelectedTextColor = '#555',
@@ -30,34 +31,39 @@ const SegmentedControl = ({
   };
 
   return (
-    <View style={[styles.container, { 
-        borderRadius,
+    <View
+      style={[
+        styles.container,
+        {
+          borderRadius,
           backgroundColor: nonSelectedBackgroundColor,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.2,
-          shadowRadius: 4,
-          elevation: 3, // For Android shadow
-     }]}>
+          borderColor: colors.gray,
+        },
+      ]}>
       {options.map((option, index) => (
         <TouchableOpacity
           key={index}
           style={[
             styles.segment,
-            selectedIndex === index
-              ? { backgroundColor: selectedBackgroundColor }
-              : { backgroundColor: nonSelectedBackgroundColor },
+            {
+              backgroundColor:
+                selectedIndex === index
+                  ? selectedBackgroundColor
+                  : nonSelectedBackgroundColor,
+              borderRadius,
+            },
           ]}
-          onPress={() => handlePress(index)}
-        >
+          onPress={() => handlePress(index)}>
           <Text
             style={[
               styles.segmentText,
-              selectedIndex === index
-                ? { color: selectedTextColor }
-                : { color: nonSelectedTextColor },
-            ]}
-          >
+              {
+                color:
+                  selectedIndex === index
+                    ? selectedTextColor
+                    : nonSelectedTextColor,
+              },
+            ]}>
             {option}
           </Text>
         </TouchableOpacity>
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
+    // borderColor is set dynamically
   },
   segment: {
     flex: 1,

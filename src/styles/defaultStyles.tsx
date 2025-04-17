@@ -55,13 +55,12 @@ const defaultStyles = StyleSheet.create({
     fontFamily: typography.fontFamilies.mullish,
   },
 
-
   ticketDescription: {
     fontSize: typography.fontSizes.small,
     fontWeight: typography.fontWeights.regular400,
     color: colors.gray,
     marginBottom: typography.fontSizes.size8,
-    fontFamily: typography.fontFamilies.mullish
+    fontFamily: typography.fontFamilies.mullish,
   },
 
   mainContainer: {
@@ -130,7 +129,7 @@ const defaultStyles = StyleSheet.create({
   badgeContainer: {
     flexDirection: 'row',
     marginVertical: typography.fontSizes.size8,
-    gap: 5
+    gap: 5,
   },
   badge: {
     borderRadius: typography.fontSizes.size5,
@@ -187,7 +186,7 @@ const defaultStyles = StyleSheet.create({
     paddingVertical: typography.fontSizes.size10,
     borderTopWidth: typography.fontSizes.size1,
     borderTopColor: colors.grayHue,
-    marginVertical: typography.fontSizes.size10
+    marginVertical: typography.fontSizes.size10,
   },
   innerContainer: {
     backgroundColor: colors.white,
@@ -203,7 +202,7 @@ const defaultStyles = StyleSheet.create({
     display: 'flex',
     flex: 1,
     marginVertical: '20%',
-    gap: 20
+    gap: 20,
   },
   imgStyles: {
     height: 250,
@@ -213,13 +212,13 @@ const defaultStyles = StyleSheet.create({
     fontFamily: typography.fontFamilies.mullish,
     fontWeight: typography.fontWeights.regular700,
     fontSize: typography.fontSizes.large,
-    textAlign:'center'
+    textAlign: 'center',
   },
   notFoundDescription: {
     fontWeight: typography.fontWeights.regular400,
     fontSize: typography.fontSizes.size14,
     lineHeight: typography.fontSizes.regular,
-    textAlign:'center'
+    textAlign: 'center',
   },
 });
 

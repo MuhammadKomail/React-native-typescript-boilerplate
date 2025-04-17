@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Modal,
   View,
@@ -8,7 +8,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import { colors, typography } from '../styles/style';
+import {colors, typography} from '../styles/style';
 
 // Simplified SparePart type
 interface SparePart {
@@ -22,7 +22,6 @@ interface SparePart {
 export interface SparePartsModalProps {
   visible: boolean;
   onClose: () => void;
-  screenName?: string;
 }
 
 // Sample data
@@ -44,15 +43,14 @@ const sampleSpareParts: SparePart[] = [
     name: 'Heating Element',
     price: 150,
     imageUrl: 'https://example.com/heating-element.jpg',
-  }
+  },
 ];
 
 const SparePartsModal: React.FC<SparePartsModalProps> = ({
   visible,
   onClose,
-  screenName = 'Request For Spare Parts'
 }) => {
-  const [selectedSpareParts, setSelectedSpareParts] = useState<SparePart[]>(sampleSpareParts);
+  const [selectedSpareParts] = useState<SparePart[]>(sampleSpareParts);
   const [quantities, setQuantities] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -84,14 +82,9 @@ const SparePartsModal: React.FC<SparePartsModalProps> = ({
   // Handle submit
   const handleSubmit = () => {
     setLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
-      const updatedSpareParts = selectedSpareParts.map((item, index) => ({
-        ...item,
-        qty: quantities[index],
-      }));
-      console.log('Confirmed spare parts with quantities:', updatedSpareParts);
       setLoading(false);
       onClose();
     }, 1000);
@@ -121,7 +114,7 @@ const SparePartsModal: React.FC<SparePartsModalProps> = ({
           {selectedSpareParts.length > 0 ? (
             selectedSpareParts.map((item, index) => (
               <View key={index} style={styles.itemContainer}>
-                <Image source={{ uri: item.imageUrl }} style={styles.itemImage} />
+                <Image source={{uri: item.imageUrl}} style={styles.itemImage} />
                 <View style={styles.itemDetails}>
                   <Text style={styles.itemName}>{item.name}</Text>
                   <View style={styles.quantityAndPriceContainer}>
@@ -131,7 +124,9 @@ const SparePartsModal: React.FC<SparePartsModalProps> = ({
                         onPress={() => decreaseQuantity(index)}>
                         <Text style={styles.quantityButtonText}>-</Text>
                       </TouchableOpacity>
-                      <Text style={styles.quantityText}>{quantities[index]}</Text>
+                      <Text style={styles.quantityText}>
+                        {quantities[index]}
+                      </Text>
                       <TouchableOpacity
                         style={styles.quantityButton}
                         onPress={() => increaseQuantity(index)}>
@@ -139,7 +134,11 @@ const SparePartsModal: React.FC<SparePartsModalProps> = ({
                       </TouchableOpacity>
                     </View>
                     <Text style={styles.itemPrice}>
-                      SAR {(item.price * quantities[index]).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      SAR{' '}
+                      {(item.price * quantities[index]).toLocaleString(
+                        undefined,
+                        {minimumFractionDigits: 2, maximumFractionDigits: 2},
+                      )}
                     </Text>
                   </View>
                 </View>
@@ -149,7 +148,9 @@ const SparePartsModal: React.FC<SparePartsModalProps> = ({
             <Text>No spare parts selected.</Text>
           )}
           {!loading ? (
-            <TouchableOpacity style={styles.confirmButton} onPress={handleSubmit}>
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={handleSubmit}>
               <Text style={styles.confirmButtonText}>Confirm Your Request</Text>
             </TouchableOpacity>
           ) : (
@@ -168,11 +169,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.modalOverlay,
   },
   modalContainer: {
     width: '90%',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 10,
     padding: 20,
   },
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   cartCountText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 14,
     fontWeight: 'bold',
   },
@@ -210,17 +211,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.grayLight,
     borderRadius: 20,
   },
   closeButtonText: {
     fontSize: 15,
-    color: 'grey',
+    color: colors.gray,
   },
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: colors.backgroundLight,
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginRight: 10,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: colors.grayLighter,
     borderRadius: 5,
   },
   itemDetails: {
@@ -254,13 +255,13 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ccc',
+    backgroundColor: colors.grayLight,
     borderRadius: 30,
     marginHorizontal: 5,
   },
   quantityButtonText: {
     fontSize: 20,
-    color: '#fff',
+    color: colors.white,
   },
   quantityText: {
     fontSize: 16,
@@ -278,7 +279,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   confirmButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 16,
   },
 });

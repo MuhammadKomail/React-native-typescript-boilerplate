@@ -25,9 +25,13 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <GestureHandlerRootView style={{flex: 1}}>
+        <GestureHandlerRootView>
           <I18nextProvider i18n={i18n}>
-            <ToastProvider offset={110} duration={3000} placement="bottom" successColor='#01BCCD'>
+            <ToastProvider
+              offset={110}
+              duration={3000}
+              placement="bottom"
+              successColor="#01BCCD">
               <ToastInitializer />
               <Navigation />
             </ToastProvider>

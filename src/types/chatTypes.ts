@@ -6,13 +6,19 @@ export interface AddChatAndUserRequest {
   userIds: string[];
 }
 
+export interface Exception {
+  message: string;
+  code?: number;
+  [key: string]: unknown;
+}
+
 export interface AddChatAndUserResponse {
   isApiHandled: boolean;
   isRequestSuccess: boolean;
   statusCode: number;
   message: string;
-  data: any[];
-  exception: any[];
+  data: unknown[];
+  exception: Exception[];
 }
 
 export interface AddUserMsgToChatRequest {
@@ -32,80 +38,78 @@ export interface AddUserMsgToChatResponse {
   statusCode: number;
   message: string;
   data: boolean;
-  exception: any[];
+  exception: Exception[];
 }
 
 export interface ListAllChatsResponse {
-  isApiHandled:     boolean;
+  isApiHandled: boolean;
   isRequestSuccess: boolean;
-  statusCode:       number;
-  message:          string;
-  data:             ChatData[];
-  exception:        any[];
+  statusCode: number;
+  message: string;
+  data: ChatData[];
+  exception: Exception[];
 }
 
 export interface ChatData {
-  chatId:   string;
-  chats:    Chat[];
+  chatId: string;
+  chats: Chat[];
   messages: Message[];
 }
 
 export interface Chat {
-  id:          string;
-  name:        string;
+  id: string;
+  name: string;
   description: string;
-  dpUrl:       string;
-  expiryMins:  number;
-  createdBy:   string;
-  updatedBy:   string;
+  dpUrl: string;
+  expiryMins: number;
+  createdBy: string;
+  updatedBy: string;
   createdDate: Date;
   updatedDate: Date;
-  isActive:    boolean;
-  isArchived:  boolean;
+  isActive: boolean;
+  isArchived: boolean;
 }
 
 export interface Message {
-  id:          string;
-  name:        string;
-  data:        string;
-  isRead:      boolean;
-  createdBy:   string;
-  updatedBy:   string;
+  id: string;
+  name: string;
+  data: string;
+  isRead: boolean;
+  createdBy: string;
+  updatedBy: string;
   createdDate: Date;
   updatedDate: Date;
-  isActive:    boolean;
-  isArchived:  boolean;
+  isActive: boolean;
+  isArchived: boolean;
 }
 
 export interface ListAllMessageByChatIdResponse {
-  isApiHandled:     boolean;
+  isApiHandled: boolean;
   isRequestSuccess: boolean;
-  statusCode:       number;
-  message:          string;
-  data:             listAllMessageByChatIdData[];
-  exception:        any[];
+  statusCode: number;
+  message: string;
+  data: listAllMessageByChatIdData[];
+  exception: Exception[];
 }
 
 export interface listAllMessageByChatIdData {
-  id:          string;
-  name:        string;
-  data:        string;
-  isRead:      boolean;
-  userId:      string;
+  id: string;
+  name: string;
+  data: string;
+  isRead: boolean;
+  userId: string;
   userDetails: UserDetails;
-  createdBy:   string;
-  updatedBy:   string;
+  createdBy: string;
+  updatedBy: string;
   createdDate: Date;
   updatedDate: Date;
-  isActive:    boolean;
-  isArchived:  boolean;
+  isActive: boolean;
+  isArchived: boolean;
 }
 
 export interface UserDetails {
-  id:       string;
-  name:     string;
-  email:    string;
+  id: string;
+  name: string;
+  email: string;
   userType: string;
 }
-
-

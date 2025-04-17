@@ -1,4 +1,10 @@
-import { I18nManager, StyleSheet, TextStyle, ViewStyle, ImageStyle } from 'react-native';
+import {
+  I18nManager,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+  ImageStyle,
+} from 'react-native';
 
 /**
  * Utility function to get direction-aware styles
@@ -21,14 +27,14 @@ export const getDirectionStyles = (isRTL = I18nManager.isRTL) => {
  */
 export const createRTLAwareStyles = <T extends StyleSheet.NamedStyles<T>>(
   baseStyles: T,
-  rtlOverrides?: Partial<T>
+  rtlOverrides?: Partial<T>,
 ): T => {
   if (!I18nManager.isRTL || !rtlOverrides) {
     return baseStyles;
   }
 
-  const rtlStyles = { ...baseStyles };
-  
+  const rtlStyles = {...baseStyles};
+
   // Apply RTL overrides
   Object.keys(rtlOverrides).forEach(key => {
     rtlStyles[key as keyof T] = {
@@ -46,22 +52,22 @@ export const createRTLAwareStyles = <T extends StyleSheet.NamedStyles<T>>(
  * @returns RTL-transformed style
  */
 export const transformRTLStyle = (
-  style: ViewStyle | TextStyle | ImageStyle
+  style: ViewStyle | TextStyle | ImageStyle,
 ): ViewStyle | TextStyle | ImageStyle => {
   if (!I18nManager.isRTL) return style;
-  
-  const transformed = { ...style };
-  
+
+  const transformed = {...style};
+
   // Flip margin and padding
   if ('marginLeft' in style) transformed.marginRight = style.marginLeft;
   if ('marginRight' in style) transformed.marginLeft = style.marginRight;
   if ('paddingLeft' in style) transformed.paddingRight = style.paddingLeft;
   if ('paddingRight' in style) transformed.paddingLeft = style.paddingRight;
-  
+
   // Flip position
   if ('left' in style) transformed.right = style.left;
   if ('right' in style) transformed.left = style.right;
-  
+
   return transformed;
 };
 

@@ -5,12 +5,10 @@ import {colors, imgPath, typography} from '../styles/style';
 const RequestCard = () => {
   // Simple dummy functions for navigation
   const goToInStock = () => {
-    console.log('Navigating to inventory screen');
     // In a real app, this would navigate to the inventory screen
   };
 
   const goToRequest = () => {
-    console.log('Navigating to spare parts request screen');
     // In a real app, this would navigate to the spare parts request screen
   };
 
@@ -22,13 +20,13 @@ const RequestCard = () => {
           onPress={() => goToInStock()}
           style={styles.requestCardLeft}>
           <View style={styles.cardRow}>
-            <Text style={styles.requestCardTitle}></Text>
+            <Text style={styles.requestCardTitle} />
             <View
               style={[styles.imgContainer, {backgroundColor: colors.primary}]}>
               <Image style={styles.imgStyle} source={imgPath.parts} />
             </View>
           </View>
-          <View style={[styles.cardRow, {paddingHorizontal: 10}]}>
+          <View style={[styles.cardRow, styles.cardRowPadded]}>
             <Text style={styles.rowText}>In Stock Inventory</Text>
             <Image style={styles.arrowStyle} source={imgPath.arrow} />
           </View>
@@ -37,13 +35,13 @@ const RequestCard = () => {
           onPress={() => goToRequest()}
           style={styles.requestCardRight}>
           <View style={styles.cardRow}>
-            <Text style={styles.requestCardTitle}></Text>
+            <Text style={styles.requestCardTitle} />
             <View
               style={[styles.imgContainer, {backgroundColor: colors.orange}]}>
               <Image style={styles.imgStyle} source={imgPath.tools} />
             </View>
           </View>
-          <View style={[styles.cardRow, {paddingHorizontal: 10}]}>
+          <View style={[styles.cardRow, styles.cardRowPadded]}>
             <Text style={styles.rowText}>Spare Part Requests</Text>
             <Image style={styles.arrowStyle} source={imgPath.arrow} />
           </View>
@@ -71,20 +69,20 @@ const styles = StyleSheet.create({
   requestCardLeft: {
     backgroundColor: colors.blueHue,
     borderColor: colors.primary,
+    borderRadius: 5,
     borderWidth: 1,
+    marginVertical: 10,
     width: '48%',
     //   padding: 10,
-    borderRadius: 5,
-    marginVertical: 10,
   },
   requestCardRight: {
     backgroundColor: colors.pinkHue,
     borderColor: colors.orange,
+    borderRadius: 5,
     borderWidth: 1,
+    marginVertical: 10,
     width: '48%',
     // padding: 10,
-    borderRadius: 5,
-    marginVertical: 10,
   },
   requestCardTitle: {
     color: colors.tertiary,
@@ -122,5 +120,8 @@ const styles = StyleSheet.create({
   arrowStyle: {
     width: 30,
     height: 30,
+  },
+  cardRowPadded: {
+    paddingHorizontal: 10,
   },
 });

@@ -1,10 +1,10 @@
 import GetLocation from 'react-native-get-location';
-import { PermissionsAndroid, Platform } from 'react-native';
+import {PermissionsAndroid, Platform} from 'react-native';
 
 const locationConfig = {
   enableHighAccuracy: true,
   timeout: 15000,
-  maximumAge: 10000
+  maximumAge: 10000,
 };
 
 /**
@@ -19,10 +19,10 @@ const requestAndroidPermission = async () => {
     {
       title: 'Location Permission',
       message: 'This app needs access to your location',
-      buttonPositive: 'OK'
-    }
+      buttonPositive: 'OK',
+    },
   );
-  
+
   return granted === PermissionsAndroid.RESULTS.GRANTED;
 };
 
@@ -44,10 +44,10 @@ export const getCurrentCoordinates = async () => {
     const location = await GetLocation.getCurrentPosition(locationConfig);
     return {
       latitude: location.latitude,
-      longitude: location.longitude
+      longitude: location.longitude,
     };
   } catch (error) {
-    const { code, message } = error as { code: string; message: string };
+    const {code, message} = error as {code: string; message: string};
     switch (code) {
       case 'CANCELLED':
         throw new Error('Location request was cancelled');

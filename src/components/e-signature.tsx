@@ -28,74 +28,74 @@ const webStyle = `
   }
 `;
 
-const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>((props, ref) => {
-  const {text, onOK, onConfirm, onTouchEnd, onTouchStart} = props;
-  const signatureRef = useRef<SignatureViewRef>(null);
+const SignaturePad = forwardRef<SignaturePadRef, SignaturePadProps>(
+  (props, ref) => {
+    const {text, onOK, onConfirm, onTouchEnd, onTouchStart} = props;
+    const signatureRef = useRef<SignatureViewRef>(null);
 
-  // Expose methods to parent component
-  useImperativeHandle(ref, () => ({
-    clearSignature: () => {
+    // Expose methods to parent component
+    useImperativeHandle(ref, () => ({
+      clearSignature: () => {
+        if (signatureRef.current) {
+          signatureRef.current.clearSignature();
+        }
+      },
+    }));
+
+    const handleOK = (signature: string) => {
+      onOK(signature);
+    };
+
+    const handleConfirm = () => {
+      if (signatureRef.current) {
+        signatureRef.current.readSignature();
+      }
+      onConfirm();
+    };
+
+    const handleEnd = () => {
+      signatureRef.current?.readSignature();
+      onTouchEnd?.(); // enable scrolling when signature ends...!
+    };
+
+    const handleClear = () => {
       if (signatureRef.current) {
         signatureRef.current.clearSignature();
       }
-    }
-  }));
+    };
 
-
-  const handleOK = (signature: string) => {
-    // console.log('Signature:', signature);
-    onOK(signature);
-  };
-
-  const handleConfirm = () => {
-    if (signatureRef.current) {
-      signatureRef.current.readSignature();
-    }
-    onConfirm();
-  };
-
-  const handleEnd = () => {
-    signatureRef.current?.readSignature();
-    onTouchEnd?.(); // enable scrolling when signature ends...!
-  };
-
-  const handleClear = () => {
-    if (signatureRef.current) {
-      signatureRef.current.clearSignature();
-    }
-  };
-
-  return (
-    <View style={defaultStyles.innerContainer}>
-      <Text style={defaultStyles.heading4}>Customer E-Signature</Text>
-      <View style={styles.container}>
-        <SignatureScreen
-          ref={signatureRef}
-          onOK={handleOK}
-          onBegin={() => {
-            onTouchStart?.();
-          }} // Disable scrolling when signature starts
-          onEnd={handleEnd}
-          webStyle={webStyle}
-          descriptionText={text}
-          backgroundColor={colors.blueHue}
-        />
-        <Icon
-          name="repeat"
-          size={30}
-          color={colors.tertiary}
-          style={styles.clearButton}
-          onPress={handleClear}
+    return (
+      <View style={defaultStyles.innerContainer}>
+        <Text style={defaultStyles.heading4}>Customer E-Signature</Text>
+        <View style={styles.container}>
+          <SignatureScreen
+            ref={signatureRef}
+            onOK={handleOK}
+            onBegin={() => {
+              onTouchStart?.();
+            }} // Disable scrolling when signature starts
+            onEnd={handleEnd}
+            webStyle={webStyle}
+            descriptionText={text}
+            backgroundColor={colors.blueHue}
+          />
+          <Icon
+            name="repeat"
+            size={30}
+            color={colors.tertiary}
+            style={styles.clearButton}
+            onPress={handleClear}
+          />
+        </View>
+        <Button
+          title="Confirm Signature"
+          onPress={handleConfirm}
+          style={styles.submitButton}
         />
       </View>
-      <Button
-        title="Confirm Signature"
-        onPress={handleConfirm}
-        style={styles.submitButton}
-      />
-    </View>
-  );
-});
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -130,5 +130,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
 });
+
+SignaturePad.displayName = 'SignaturePad';
 
 export default SignaturePad;

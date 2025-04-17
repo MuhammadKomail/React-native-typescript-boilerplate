@@ -69,7 +69,7 @@ const imagePath = {
   chatTicket: chatTicket,
   profileCamera: profileCamera,
   nextArrow: nextArrow,
-  search: search
+  search: search,
 } as const;
 
 export default imagePath;

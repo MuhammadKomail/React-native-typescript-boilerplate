@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
-import {colors, typography, defaultStyles} from '../styles/style';
+import {colors, typography} from '../styles/style';
 
 // Simplified ticket data structure
 interface TicketData {
@@ -81,7 +81,7 @@ const sampleTicket: TicketData = {
 };
 
 const TicketCard: React.FC<TicketCardProps> = ({
-  navigateTicketDetails = (id) => console.log(`Navigate to ticket ${id}`),
+  navigateTicketDetails = _id => {}, // TODO: Implement navigation
 }) => {
   const ticketData = sampleTicket;
 
@@ -99,10 +99,10 @@ const TicketCard: React.FC<TicketCardProps> = ({
           </Text>
         </View>
       </View>
-      <View style={{paddingTop: 10}}>
+      <View style={styles.paddingTopTen}>
         {Array.isArray(ticketData.productDetails) &&
         ticketData.productDetails.length > 0 ? (
-          ticketData.productDetails.map((item) => {
+          ticketData.productDetails.map(item => {
             return (
               <View key={item.id}>
                 <Text style={styles.title}>
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     borderRadius: typography.fontSizes.size8,
     padding: typography.fontSizes.size7,
     marginBottom: typography.fontSizes.size8,
-    shadowColor: '#000',
+    shadowColor: colors.black,
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.1,
     shadowRadius: typography.fontSizes.size3,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSizes.size14,
     fontWeight: typography.fontWeights.regular600,
     marginBottom: typography.fontSizes.size5,
-    color: 'black',
+    color: colors.black,
     fontFamily: typography.fontFamilies.mullish,
   },
   description: {
@@ -211,14 +211,7 @@ const styles = StyleSheet.create({
     marginRight: typography.fontSizes.size8,
     overflow: 'hidden',
   },
-  priorityBadge: {
-    backgroundColor: '#FFD1D1',
-    color: '#D32F2F',
-  },
-  statusBadge: {
-    backgroundColor: '#F9E4B7',
-    color: '#795548',
-  },
+
   detailsLink: {
     marginTop: typography.fontSizes.size8,
     paddingRight: typography.fontSizes.size8,
@@ -231,9 +224,12 @@ const styles = StyleSheet.create({
   },
   noTicketsText: {
     fontSize: typography.fontSizes.size14,
-    color: '#FF0000',
+    color: colors.secondary,
     textAlign: 'center',
     marginTop: typography.fontSizes.size8,
+  },
+  paddingTopTen: {
+    paddingTop: 10,
   },
 });
 
