@@ -56,7 +56,7 @@ export const loginUser = createAsyncThunk(
           iqamaId: credentials.username,
           name: 'Test User',
           email: 'testuser@example.com',
-          profileImage: null,
+          profileImage: 'null',
           joinDate: '2023-01-15T08:30:00Z',
           phone: '+966 50 123 4567',
           role: 'Technician',
@@ -64,7 +64,6 @@ export const loginUser = createAsyncThunk(
         token: 'dummy_token',
         lastLoginDate: formattedDate,
       };
-
       return response;
     } catch (error: any) {
       return rejectWithValue(error.message || 'Login failed');
@@ -97,7 +96,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        // state.user = action.payload.user;
+        state.user = action.payload.user;
         state.token = action.payload.token;
         state.error = null;
         state.isAuthenticated = true;

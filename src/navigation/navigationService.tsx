@@ -1,20 +1,15 @@
 import {CommonActions, NavigationContainerRef} from '@react-navigation/native';
 
-// Use a generic or unknown for navigation ref and params
-type RootNavigationParamList = Record<string, object | undefined>;
-
-let _navigator: NavigationContainerRef<RootNavigationParamList>;
+// Store navigation container ref
+let _navigator: NavigationContainerRef<any>;
 
 function setTopLevelNavigator(
-  navigatorRef: NavigationContainerRef<RootNavigationParamList>,
+  navigatorRef: NavigationContainerRef<any> | null,
 ) {
-  _navigator = navigatorRef;
+  if (navigatorRef) _navigator = navigatorRef;
 }
 
-function navigate<RouteName extends keyof RootNavigationParamList>(
-  routeName: RouteName,
-  params?: RootNavigationParamList[RouteName],
-) {
+function navigate(routeName: string, params?: object) {
   _navigator.navigate(routeName, params);
 }
 
