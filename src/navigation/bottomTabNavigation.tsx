@@ -18,6 +18,23 @@ import ChatScreen from '../screens/chatScreen/chatScreen';
 const {width} = Dimensions.get('window');
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
+const getIconName = (routeName: string, focused: boolean) => {
+  switch (routeName) {
+    case 'Home':
+      return focused ? 'home-sharp' : 'home-outline';
+    case 'Alerts':
+      return focused ? 'notifications-sharp' : 'notifications-outline';
+    case 'Tickets':
+      return 'ticket-sharp';
+    case 'Profile':
+      return focused ? 'person-sharp' : 'person-outline';
+    case 'Chats':
+      return focused ? 'chatbox-sharp' : 'chatbox-outline';
+    default:
+      return 'ellipse-outline';
+  }
+};
+
 const CustomTabBar = (props: BottomTabBarProps) => {
   const {state, descriptors, navigation} = props;
   // Note: Fetching data from redux...!
@@ -46,12 +63,11 @@ const CustomTabBar = (props: BottomTabBarProps) => {
     <View style={styles.tabContainer}>
       {/* Render visible tabs */}
       {state.routes
-        .filter((route: any) => {
-          const tabBarButton = descriptors[route.key].options.tabBarButton;
-          return typeof tabBarButton !== 'function' || tabBarButton() !== null;
-        })
+        .filter(
+          (route: any) => descriptors[route.key].options.tabBarButton == null,
+        )
         .map((route: {key: string; name: string}, index: number) => {
-          const {options} = descriptors[route.key];
+          // const {options} = descriptors[route.key];
           const isFocused = state.index === index;
 
           const onPress = () => {
@@ -95,7 +111,7 @@ const CustomTabBar = (props: BottomTabBarProps) => {
 
       {/* Middle Button */}
       <TouchableOpacity
-        onPress={() => navigation.navigate('Profile')}
+        onPress={() => navigation.navigate('Profile', undefined)}
         style={styles.middleButtonContainer}>
         <View style={styles.middleButton}>
           <Icon name="ticket-outline" size={28} color="#fff" />
@@ -169,19 +185,3 @@ const styles = StyleSheet.create({
 });
 
 export default BottomTab;
-const getIconName = (routeName: string, focused: boolean) => {
-  switch (routeName) {
-    case 'Home':
-      return focused ? 'home-sharp' : 'home-outline';
-    case 'Alerts':
-      return focused ? 'notifications-sharp' : 'notifications-outline';
-    case 'Tickets':
-      return 'ticket-sharp';
-    case 'Profile':
-      return focused ? 'person-sharp' : 'person-outline';
-    case 'Chats':
-      return focused ? 'chatbox-sharp' : 'chatbox-outline';
-    default:
-      return 'ellipse-outline';
-  }
-};
