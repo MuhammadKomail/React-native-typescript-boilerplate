@@ -39,6 +39,8 @@ const LoginScreen = () => {
   const isRTL = I18nManager.isRTL;
   const directionStyles = getDirectionStyles(isRTL);
 
+  const [isLoadings, setIsLoadings] = useState(false);
+
   const [formStates, setFormStates] = useState<Login>({
     iqamaId: '',
     password: '',
@@ -74,6 +76,8 @@ const LoginScreen = () => {
     
     return date.toLocaleDateString(isRTL ? 'ar-SA' : 'en-US', options);
   };
+
+  console.log('formStates', formStates);
 
   const submitForm = () => {
     if (formStates.iqamaId === '') {
