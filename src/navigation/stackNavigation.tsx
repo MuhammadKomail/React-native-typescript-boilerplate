@@ -1,6 +1,5 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useNetInfo} from '@react-native-community/netinfo';
 
 const Stack = createNativeStackNavigator();
 const {Navigator, Screen} = Stack;
@@ -30,7 +29,7 @@ const screenData = [
 ];
 
 const StackNavigation = () => {
-  const netInfo = useNetInfo();
+  // const netInfo = useNetInfo(); // Removed as unused
 
   return (
     <>

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {I18nManager} from 'react-native';
-import i18next from '../../../languageTranslation/index';
+// import i18next from '../../../languageTranslation/index'; // Removed as unused
 
 // Note: Translation interface...!
 interface TranslationState {

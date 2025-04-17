@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import MaterialIcons from '@react-native-vector-icons/material-icons';
+// import MaterialIcons from '@react-native-vector-icons/material-icons'; // Removed as unused
 import {colors, typography, defaultStyles} from '../styles/style';
 
 interface AccordionProps {
@@ -13,32 +13,26 @@ const CustomAccordion: React.FC<AccordionProps> = ({sections}) => {
 
   const renderHeader = (
     section: {title: string},
-    index: number,
-    isActive: boolean,
+    _index: number,
+    _isActive: boolean,
   ) => (
     <View style={styles.header}>
       <Text style={styles.headerText}>{section.title}</Text>
-      {/* <View style={{backgroundColor: colors.primary}}>
-        <MaterialIcons
-          name={isActive ? 'keyboard-arrow-up' : 'keyboard-arrow-down'}
-          size={24}
-          color={colors.white} // Matches your custom color
-        />
-      </View> */}
+      {/* Icon code commented out, can be restored if needed */}
     </View>
   );
 
-  const renderContent = (section: {title: string; content: string}) => (
+  const renderContent = () => (
     <>
-      <View style={{backgroundColor: colors.white, paddingHorizontal: 10}}>
+      <View style={styles.contentContainer}>
         <View style={styles.descriptionContainer}>
           <Text style={defaultStyles.ticketTitle}>
             Detailed Description of Issue:
           </Text>
-          <View style={{paddingVertical: 10}}>
+          <View style={styles.issuesListContainer}>
             <View style={styles.issueItem}>
               <Text style={defaultStyles.ticketTitle}>
-                {`Cooling Issue: `}
+                {'Cooling Issue: '}
                 <Text style={styles.issueDescription}>
                   The refrigerator is not cooling properly. The temperature
                   inside is not staying consistent, and the food is spoiling
@@ -48,7 +42,7 @@ const CustomAccordion: React.FC<AccordionProps> = ({sections}) => {
             </View>
             <View style={styles.issueItem}>
               <Text style={defaultStyles.ticketTitle}>
-                {`Water Leak: `}
+                {'Water Leak: '}
                 <Text style={styles.issueDescription}>
                   There is noticeable water leakage inside the fridge, pooling
                   at the bottom of the refrigerator compartment.
@@ -57,7 +51,7 @@ const CustomAccordion: React.FC<AccordionProps> = ({sections}) => {
             </View>
             <View style={styles.issueItem}>
               <Text style={defaultStyles.ticketTitle}>
-                {`Excessive Noise: `}
+                {'Excessive Noise: '}
                 <Text style={styles.issueDescription}>
                   The refrigerator is making a loud, persistent humming noise
                   when running. The noise is constant, and sometimes it gets
@@ -67,7 +61,7 @@ const CustomAccordion: React.FC<AccordionProps> = ({sections}) => {
             </View>
             <View style={styles.issueItem}>
               <Text style={defaultStyles.ticketTitle}>
-                {`Control Panel Malfunction: `}
+                {'Control Panel Malfunction: '}
                 <Text style={styles.issueDescription}>
                   The control panel/display is not responding consistently. Some
                   buttons are unresponsive.
@@ -76,32 +70,10 @@ const CustomAccordion: React.FC<AccordionProps> = ({sections}) => {
             </View>
           </View>
         </View>
-        <View style={{padding: 10, gap: 10}}>
-          <Text
-            style={{
-              fontFamily: typography.fontFamilies.mullish,
-              fontSize: typography.fontSizes.size14,
-              fontWeight: typography.fontWeights.regular700,
-              color: colors.black,
-            }}>
-            Customer Details
-          </Text>
-          <Text
-            style={{
-              fontFamily: typography.fontFamilies.mullish,
-              fontSize: typography.fontSizes.size14,
-              fontWeight: typography.fontWeights.regular400,
-              color: colors.gray,
-            }}>
-            +966 555 123 456
-          </Text>
-          <Text
-            style={{
-              fontFamily: typography.fontFamilies.mullish,
-              fontSize: typography.fontSizes.size14,
-              fontWeight: typography.fontWeights.regular400,
-              color: colors.gray,
-            }}>
+        <View style={styles.customerDetailsContainer}>
+          <Text style={styles.customerDetailsTitle}>Customer Details</Text>
+          <Text style={styles.customerDetailsText}>+966 555 123 456</Text>
+          <Text style={styles.customerDetailsText}>
             123 King Fahd Road, Al Mahz
           </Text>
         </View>
@@ -129,30 +101,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 13,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white, // moved from literal
   },
   headerText: {
     fontSize: 16,
     fontFamily: typography.fontFamilies.mullish,
   },
-  content: {
-    padding: 15,
-    backgroundColor: '#f8f8f8',
-  },
-  contentText: {
-    fontSize: 14,
-    color: '#333',
-  },
+  // Removed unused styles: content, contentText, issueTitle
   issueItem: {
     marginBottom: typography.fontSizes.regular,
     alignItems: 'flex-start',
     justifyContent: typography.alignments.center,
-  },
-  issueTitle: {
-    fontSize: typography.fontSizes.medium,
-    fontWeight: typography.fontWeights.bold,
-    color: colors.black,
-    marginBottom: typography.fontSizes.size4,
   },
   issueDescription: {
     fontSize: typography.fontSizes.medium,
@@ -163,6 +122,29 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: colors.grayHue,
     paddingHorizontal: 10,
+  },
+  contentContainer: {
+    backgroundColor: colors.white,
+    paddingHorizontal: 10,
+  },
+  issuesListContainer: {
+    paddingVertical: 10,
+  },
+  customerDetailsContainer: {
+    padding: 10,
+    gap: 10,
+  },
+  customerDetailsTitle: {
+    fontFamily: typography.fontFamilies.mullish,
+    fontSize: typography.fontSizes.size14,
+    fontWeight: typography.fontWeights.regular700,
+    color: colors.black,
+  },
+  customerDetailsText: {
+    fontFamily: typography.fontFamilies.mullish,
+    fontSize: typography.fontSizes.size14,
+    fontWeight: typography.fontWeights.regular400,
+    color: colors.gray,
   },
 });
 
