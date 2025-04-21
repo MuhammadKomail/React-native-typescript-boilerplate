@@ -1288,7 +1288,7 @@ PODS:
     - react-native-config/App (= 1.5.5)
   - react-native-config/App (1.5.5):
     - React-Core
-  - react-native-date-picker (5.0.4):
+  - react-native-date-picker (5.0.12):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2297,7 +2297,7 @@ SPEC CHECKSUMS:
   react-native-blob-util: caa7203c370bbf76ae63b67300d1b489b1a62511
   react-native-cameraroll: d11a57f4c4c614355fb388f0ae12ac1f3b2ba1e9
   react-native-config: 3367df9c1f25bb96197007ec531c7087ed4554c3
-  react-native-date-picker: 01d4d4f4722ab19fbd809b73bba95cb22d43345e
+  react-native-date-picker: 032ef35195019c42d338f949be0b28b8988ffe1a
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-image-picker: 1cd296bc9cc1875732651a729be6bbc3f65d32fb
   react-native-mmkv: 21d0f6ed2d9532f2370cef81eca4ccbef7350441

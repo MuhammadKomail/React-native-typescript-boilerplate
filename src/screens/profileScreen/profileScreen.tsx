@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import colors from '../../styles/colors';
+import {useTheme} from '../../theme/ThemeContext';
+import {lightTheme} from '../../theme/theme';
 
 const demoProfile = {
   avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
@@ -10,13 +12,48 @@ const demoProfile = {
 };
 
 const ProfileScreen = () => {
+  const {theme} = useTheme();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor:
+            theme === 'dark' ? lightTheme.background : colors.white,
+        },
+      ]}>
+      <View
+        style={[
+          styles.card,
+          {
+            backgroundColor:
+              theme === 'dark' ? lightTheme.background : colors.white,
+            shadowColor: theme === 'dark' ? lightTheme.text : colors.black,
+          },
+        ]}>
         <Image source={{uri: demoProfile.avatar}} style={styles.avatar} />
-        <Text style={styles.name}>{demoProfile.name}</Text>
-        <Text style={styles.email}>{demoProfile.email}</Text>
-        <Text style={styles.role}>{demoProfile.role}</Text>
+        <Text
+          style={[
+            styles.name,
+            {color: theme === 'dark' ? lightTheme.text : colors.black},
+          ]}>
+          {demoProfile.name}
+        </Text>
+        <Text
+          style={[
+            styles.email,
+            {color: theme === 'dark' ? lightTheme.text : colors.gray},
+          ]}>
+          {demoProfile.email}
+        </Text>
+        <Text
+          style={[
+            styles.role,
+            {color: theme === 'dark' ? lightTheme.text : colors.gray},
+          ]}>
+          {demoProfile.role}
+        </Text>
       </View>
     </View>
   );

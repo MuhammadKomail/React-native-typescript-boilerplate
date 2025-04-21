@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {colors, imgPath, typography} from '../styles/style';
+import {colors, typography} from '../styles/style';
 
 // Simplified type for spare parts
 interface SparePart {
@@ -78,7 +78,7 @@ const SparePartsInStock: React.FC<SparePartsInStockProps> = ({
           return (
             <View key={part.id} style={styles.card}>
               <Image
-                source={{uri: part.image || imgPath.camera}}
+                source={{uri: part.image && part.image}}
                 style={styles.image}
               />
               <View style={styles.detailsContainer}>

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  I18nManager,
 } from 'react-native';
 import Icon from '@react-native-vector-icons/ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -14,6 +15,7 @@ import ProfileScreen from '../screens/profileScreen/profileScreen';
 import colors from '../styles/colors';
 import {RootStackParamList} from '../types/navigationTypes';
 import ChatScreen from '../screens/chatScreen/chatScreen';
+import {useTranslation} from 'react-i18next';
 
 const {width} = Dimensions.get('window');
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -37,37 +39,20 @@ const getIconName = (routeName: string, focused: boolean) => {
 
 const CustomTabBar = (props: BottomTabBarProps) => {
   const {state, descriptors, navigation} = props;
-  // Note: Fetching data from redux...!
-  // const {authenticatedUser} = useAppSelector(
-  //   (state: RootState) => state.authState,
-  // );
-
-  // const {ticketList} = useAppSelector((state: RootState) => state.ticketState);
-
-  // Note: Handeling dispatch here...!
-  // const dispatch = useAppDispatch();
-
-  // Note: This hook will run when component mounts....!
-  // useEffect(() => {
-  //   if (authenticatedUser) {
-  //     dispatch(
-  //       fetchTicketByTechnicianId({
-  //         technicianId: authenticatedUser?.technicianId,
-  //         status: 'Assigned',
-  //       }),
-  //     );
-  //   }
-  // }, []);
+  const {t} = useTranslation();
+  const isRTL = I18nManager.isRTL;
 
   return (
-    <View style={styles.tabContainer}>
-      {/* Render visible tabs */}
+    <View
+      style={[
+        styles.tabContainer,
+        {flexDirection: isRTL ? 'row-reverse' : 'row'},
+      ]}>
       {state.routes
         .filter(
           (route: any) => descriptors[route.key].options.tabBarButton == null,
         )
         .map((route: {key: string; name: string}, index: number) => {
-          // const {options} = descriptors[route.key];
           const isFocused = state.index === index;
 
           const onPress = () => {
@@ -82,9 +67,6 @@ const CustomTabBar = (props: BottomTabBarProps) => {
             }
           };
 
-          // const showBadge = route.name === 'Alerts';
-          // const badgeCount = ticketList?.length || 0;
-
           return (
             <TouchableOpacity
               key={route.key}
@@ -96,23 +78,22 @@ const CustomTabBar = (props: BottomTabBarProps) => {
                   size={24}
                   color={isFocused ? colors.primary : colors.gray}
                 />
-                {/* {showBadge && badgeCount > 0 && (
-                  <View style={styles.badge}>
-                    <Text style={styles.badgeText}>{badgeCount}</Text>
-                  </View>
-                )} */}
               </View>
               <Text style={[styles.tabText, isFocused && styles.focusedText]}>
-                {route.name}
+                {t(route.name)}
               </Text>
             </TouchableOpacity>
           );
         })}
 
-      {/* Middle Button */}
       <TouchableOpacity
         onPress={() => navigation.navigate('Profile', undefined)}
-        style={styles.middleButtonContainer}>
+        style={[
+          styles.middleButtonContainer,
+          {
+            [!isRTL ? 'right' : 'left']: width / 2 - 37,
+          },
+        ]}>
         <View style={styles.middleButton}>
           <Icon name="ticket-outline" size={28} color="#fff" />
         </View>
@@ -155,7 +136,6 @@ const styles = StyleSheet.create({
   middleButtonContainer: {
     position: 'absolute',
     bottom: 40,
-    left: width / 2 - 37,
     backgroundColor: colors.white,
     borderRadius: 80,
     padding: 5,

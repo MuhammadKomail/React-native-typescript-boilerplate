@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import colors from '../../styles/colors';
+import {useTheme} from '../../theme/ThemeContext';
+import {lightTheme} from '../../theme/theme';
 
 const ChatScreen = () => {
+  const {theme} = useTheme();
   const [messages, setMessages] = useState([
     {id: '1', text: 'Hello!'},
     {id: '2', text: 'Hi, how are you?'},
@@ -27,25 +30,73 @@ const ChatScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor:
+            theme === 'dark' ? lightTheme.background : colors.white,
+        },
+      ]}>
       <FlatList
         data={messages}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <View style={styles.messageBubble}>
-            <Text>{item.text}</Text>
+          <View
+            style={[
+              styles.messageBubble,
+              {
+                backgroundColor:
+                  theme === 'dark' ? lightTheme.border : colors.white,
+                shadowColor: theme === 'dark' ? lightTheme.text : colors.black,
+              },
+            ]}>
+            <Text
+              style={{
+                color: theme === 'dark' ? lightTheme.text : colors.black,
+              }}>
+              {item.text}
+            </Text>
           </View>
         )}
         contentContainerStyle={styles.messagesContainer}
       />
-      <View style={styles.inputContainer}>
+      <View
+        style={[
+          styles.inputContainer,
+          {
+            backgroundColor:
+              theme === 'dark' ? lightTheme.background : colors.white,
+            borderColor: theme === 'dark' ? lightTheme.border : colors.grayHue,
+          },
+        ]}>
         <TextInput
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor:
+                theme === 'dark' ? lightTheme.background : colors.white,
+              borderColor:
+                theme === 'dark' ? lightTheme.border : colors.grayHue,
+              color: theme === 'dark' ? lightTheme.text : colors.black,
+            },
+          ]}
           placeholder="Type a message"
+          placeholderTextColor={
+            theme === 'dark' ? lightTheme.text : colors.gray
+          }
           value={input}
           onChangeText={setInput}
         />
-        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+        <TouchableOpacity
+          style={[
+            styles.sendButton,
+            {
+              backgroundColor:
+                theme === 'dark' ? lightTheme.border : colors.black,
+            },
+          ]}
+          onPress={sendMessage}>
           <Text style={styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>

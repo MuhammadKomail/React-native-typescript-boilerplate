@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -17,13 +17,15 @@ const CustomDropdown = ({
   onSelect,
   maxVisibleItems = 4,
   width = '80%',
+  defaultValue = 'English',
 }: {
   data: string[];
   onSelect: (item: string) => void;
   maxVisibleItems?: number;
   width?: number | `${number}%`;
+  defaultValue?: string;
 }) => {
-  const [selectedItem, setSelectedItem] = useState<string | null>('English'); // Default to English
+  const [selectedItem, setSelectedItem] = useState<string | null>(defaultValue);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownHeight = useRef(new Animated.Value(0)).current;
@@ -31,6 +33,10 @@ const CustomDropdown = ({
 
   const ITEM_HEIGHT = 40;
   const MAX_HEIGHT = maxVisibleItems * ITEM_HEIGHT;
+
+  useEffect(() => {
+    setSelectedItem(defaultValue);
+  }, [defaultValue]);
 
   const handleSelect = async (item: string) => {
     if (isAnimating) return;
@@ -125,7 +131,17 @@ const CustomDropdown = ({
           <MaterialIcons name="keyboard-arrow-down" size={24} color="#000" />
         </Animated.View>
       </TouchableOpacity>
-      <Animated.View style={styles.dropdownContainer}>
+      <Animated.View
+        style={[
+          styles.dropdownContainer,
+          {
+            height: dropdownHeight,
+            opacity: dropdownHeight.interpolate({
+              inputRange: [0, MAX_HEIGHT],
+              outputRange: [0, 1],
+            }),
+          },
+        ]}>
         <FlatList
           data={data}
           keyExtractor={(item, index) => index.toString()}
@@ -177,7 +193,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 5,
     overflow: 'hidden',
-    // borderWidth: 1,
+    position: 'absolute',
+    top: 55,
+    left: 15,
+    right: 15,
+    zIndex: 1000,
   },
   item: {
     height: 40,

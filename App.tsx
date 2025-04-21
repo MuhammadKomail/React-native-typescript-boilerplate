@@ -10,6 +10,7 @@ import {I18nextProvider} from 'react-i18next';
 import {ToastProvider, useToast} from 'react-native-toast-notifications';
 import i18n from './src/languageTranslation/index';
 import {setToastRef} from './src/utils/toast';
+import {ThemeProvider} from './src/theme/ThemeContext';
 
 const ToastInitializer = () => {
   const toast = useToast();
@@ -23,22 +24,24 @@ const ToastInitializer = () => {
 
 function App(): React.JSX.Element {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <GestureHandlerRootView>
-          <I18nextProvider i18n={i18n}>
-            <ToastProvider
-              offset={110}
-              duration={3000}
-              placement="bottom"
-              successColor="#01BCCD">
-              <ToastInitializer />
-              <Navigation />
-            </ToastProvider>
-          </I18nextProvider>
-        </GestureHandlerRootView>
-      </PersistGate>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <GestureHandlerRootView>
+            <I18nextProvider i18n={i18n}>
+              <ToastProvider
+                offset={110}
+                duration={3000}
+                placement="bottom"
+                successColor="#01BCCD">
+                <ToastInitializer />
+                <Navigation />
+              </ToastProvider>
+            </I18nextProvider>
+          </GestureHandlerRootView>
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

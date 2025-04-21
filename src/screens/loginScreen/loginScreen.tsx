@@ -22,9 +22,10 @@ import Checkbox from '../../components/checkbox';
 import {useTranslation} from 'react-i18next';
 import Icon from '@react-native-vector-icons/material-icons';
 import {showToast} from '../../utils/toast';
-
+import {lightTheme} from '../../theme/theme';
 import {RootState, useAppDispatch, useAppSelector} from '../../redux/store';
 import {loginUser} from '../../redux/slices/authSlice/authSlice';
+import {useTheme} from '../../theme/ThemeContext';
 
 interface Login {
   iqamaId: string;
@@ -37,6 +38,7 @@ const LoginScreen = () => {
   const {width, height} = useWindowDimensions();
   const {t} = useTranslation();
   const isRTL = I18nManager.isRTL;
+  const {theme} = useTheme();
 
   const [formStates, setFormStates] = useState<Login>({
     iqamaId: '',
@@ -108,8 +110,21 @@ const LoginScreen = () => {
         resizeMode="cover">
         <ScrollView contentContainerStyle={styles.container}>
           <SafeAreaView style={[styles.container]}>
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateText}>{formatDate(currentDate)}</Text>
+            <View
+              style={[
+                styles.dateContainer,
+                {
+                  backgroundColor:
+                    theme === 'dark' ? lightTheme.background : colors.white,
+                },
+              ]}>
+              <Text
+                style={[
+                  styles.dateText,
+                  {color: theme === 'dark' ? lightTheme.text : colors.black},
+                ]}>
+                {formatDate(currentDate)}
+              </Text>
             </View>
 
             <Image
@@ -117,13 +132,28 @@ const LoginScreen = () => {
               style={[defaultStyles.image]}
               resizeMode="contain"
             />
-            <Text style={[defaultStyles.mainHeading]}>
+            <Text
+              style={[
+                defaultStyles.mainHeading,
+                {color: theme === 'dark' ? lightTheme.text : colors.black},
+              ]}>
               {t('Sign into your account')}
             </Text>
-            <Text style={[defaultStyles.subHeading]}>
+            <Text
+              style={[
+                defaultStyles.subHeading,
+                {color: theme === 'dark' ? lightTheme.text : undefined},
+              ]}>
               {t('Enter your Username and Password to login')}
             </Text>
-            <View style={defaultStyles.mainContainer}>
+            <View
+              style={[
+                defaultStyles.mainContainer,
+                {
+                  backgroundColor:
+                    theme === 'dark' ? lightTheme.background : undefined,
+                },
+              ]}>
               {lastLoginDate && (
                 <View style={styles.lastLoginContainer}>
                   <Text style={styles.lastLoginText}>
@@ -135,47 +165,77 @@ const LoginScreen = () => {
                 </View>
               )}
 
-              <Text style={styles.textStyles}>{t('Iqama ID')}</Text>
+              <Text
+                style={[
+                  styles.textStyles,
+                  {color: theme === 'dark' ? lightTheme.text : colors.black},
+                ]}>
+                {t('Iqama ID')}
+              </Text>
               <TextInput
-                style={[styles.input]}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor:
+                      theme === 'dark' ? lightTheme.background : colors.white,
+                    borderColor:
+                      theme === 'dark' ? lightTheme.border : colors.lightGray,
+                    color: theme === 'dark' ? lightTheme.text : colors.black,
+                  },
+                ]}
                 value={formStates.iqamaId}
                 onChangeText={text =>
                   setFormStates({...formStates, iqamaId: text})
                 }
                 placeholder={t('Enter your Iqama ID')}
-                placeholderTextColor={colors.lightGray}
-                textAlign={isRTL ? ('right' as const) : ('left' as const)}
+                placeholderTextColor={
+                  theme === 'dark' ? lightTheme.text : colors.lightGray
+                }
+                textAlign={isRTL ? 'right' : 'left'}
               />
-              <Text style={styles.textStyles}>{t('Password')}</Text>
+              <Text
+                style={[
+                  styles.textStyles,
+                  {color: theme === 'dark' ? lightTheme.text : colors.black},
+                ]}>
+                {t('Password')}
+              </Text>
               <View style={styles.passwordContainer}>
                 <TextInput
-                  style={[styles.input, styles.passwordInput]}
+                  style={[
+                    styles.input,
+                    styles.passwordInput,
+                    {
+                      backgroundColor:
+                        theme === 'dark' ? lightTheme.background : colors.white,
+                      borderColor:
+                        theme === 'dark' ? lightTheme.border : colors.lightGray,
+                      color: theme === 'dark' ? lightTheme.text : colors.black,
+                    },
+                  ]}
                   value={formStates.password}
                   onChangeText={text =>
                     setFormStates({...formStates, password: text})
                   }
                   secureTextEntry={!formStates.showPassword}
                   placeholder={t('Enter your password')}
-                  placeholderTextColor={colors.lightGray}
-                  textAlign={isRTL ? ('right' as const) : ('left' as const)}
+                  placeholderTextColor={
+                    theme === 'dark' ? lightTheme.text : colors.lightGray
+                  }
+                  textAlign={isRTL ? 'right' : 'left'}
                 />
-                <TouchableOpacity
-                  style={styles.eyeIcon}
-                  onPress={() =>
-                    setFormStates({
-                      ...formStates,
-                      showPassword: !formStates.showPassword,
-                    })
-                  }>
-                  {formStates.showPassword ? (
-                    <Icon name="visibility" size={width * 0.05} />
-                  ) : (
-                    <Icon name="visibility-off" size={width * 0.05} />
-                  )}
+                <TouchableOpacity style={styles.eyeIcon}>
+                  <Icon
+                    name={
+                      formStates.showPassword ? 'visibility' : 'visibility-off'
+                    }
+                    size={width * 0.05}
+                    color={theme === 'dark' ? lightTheme.text : colors.black}
+                  />
                 </TouchableOpacity>
               </View>
               <View style={styles.secondContainer}>
-                <View style={[styles.rememberMeContainer]}>
+                <View style={styles.rememberMeContainer}>
                   <Checkbox
                     checked={formStates.rememberMe}
                     onPress={() =>
@@ -185,7 +245,16 @@ const LoginScreen = () => {
                       })
                     }
                   />
-                  <Text style={[styles.textStyles]}>{t('Remember me')}</Text>
+                  <Text
+                    style={[
+                      styles.textStyles,
+                      {
+                        color:
+                          theme === 'dark' ? lightTheme.text : colors.black,
+                      },
+                    ]}>
+                    {t('Remember me')}
+                  </Text>
                 </View>
                 <TouchableOpacity>
                   <Text style={[styles.forgotPassword]}>
@@ -200,7 +269,10 @@ const LoginScreen = () => {
               />
 
               {isLoading && (
-                <ActivityIndicator size="large" color={colors.primary} />
+                <ActivityIndicator
+                  size="large"
+                  color={theme === 'dark' ? lightTheme.text : colors.primary}
+                />
               )}
 
               {error && <Text style={styles.errorText}>{error}</Text>}
@@ -224,7 +296,9 @@ const styles = StyleSheet.create({
   textStyles: {
     fontFamily: typography.fontFamilies.mullish,
     color: colors.black,
-    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    alignSelf: I18nManager.isRTL ? 'flex-end' : 'flex-start',
+    width: '100%',
   },
   input: {
     borderWidth: 1,
@@ -234,29 +308,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginVertical: 8,
     width: '100%',
-    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
   },
   passwordContainer: {
     position: 'relative',
     width: '100%',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
   },
   passwordInput: {
-    paddingRight: 40,
-    paddingLeft: 15,
+    paddingRight: I18nManager.isRTL ? 15 : 40,
+    paddingLeft: I18nManager.isRTL ? 40 : 15,
     color: colors.black,
+    width: '100%',
   },
   eyeIcon: {
     position: 'absolute',
     top: Platform.OS === 'android' ? 12 : 15,
+    [I18nManager.isRTL ? 'left' : 'right']: 5,
     padding: 5,
   },
   secondContainer: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
     justifyContent: 'space-between',
     marginVertical: 10,
+    width: '100%',
   },
   rememberMeContainer: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
     alignItems: 'center',
     gap: 5,
   },
@@ -291,7 +369,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: colors.error,
-    textAlign: I18nManager.isRTL ? ('right' as const) : ('left' as const),
+    textAlign: I18nManager.isRTL ? 'right' : 'left',
     marginTop: 10,
     fontFamily: typography.fontFamilies.mullish,
   },

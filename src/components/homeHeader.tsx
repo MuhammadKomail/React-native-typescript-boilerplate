@@ -1,6 +1,15 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  I18nManager,
+} from 'react-native';
 import React from 'react';
-import {imgPath, defaultStyles, colors, typography} from '../styles/style';
+import {imgPath} from '../styles/style';
+import {ThemedText} from './ThemedComponents';
+import {ThemedIcon} from './ThemedIcon';
+import {useTranslation} from 'react-i18next';
 
 interface HomeHeaderProps {
   title: string;
@@ -8,26 +17,38 @@ interface HomeHeaderProps {
 }
 
 const HomeHeader: React.FC<HomeHeaderProps> = ({title, drawer}) => {
+  const isRTL = I18nManager.isRTL;
+  const {t} = useTranslation();
+
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.leftContainer}>
+      {/* Menu button for RTL */}
+      {isRTL && (
+        <TouchableOpacity onPress={drawer} style={styles.menuButton}>
+          <ThemedIcon name="menu" size={24} />
+        </TouchableOpacity>
+      )}
+
+      <View style={[styles.leftContainer, isRTL && styles.leftContainerRTL]}>
         <Image
           source={imgPath.logo}
           style={styles.image}
           resizeMode="contain"
         />
-        <View>
-          <Text style={styles.headerTitle}>{title}</Text>
-          <Text style={styles.headerSubTitle}>Welcome to ajeek</Text>
+        <View style={styles.textContainer}>
+          <ThemedText style={styles.headerTitle}>{t(title)}</ThemedText>
+          <ThemedText style={styles.headerSubTitle}>
+            {t('Welcome to ajeek')}
+          </ThemedText>
         </View>
       </View>
-      <TouchableOpacity onPress={drawer} style={styles.rightContainer}>
-        <Image
-          source={imgPath.menuIcon}
-          style={defaultStyles.menuIcon}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+
+      {/* Menu button for LTR */}
+      {!isRTL && (
+        <TouchableOpacity onPress={drawer} style={styles.menuButton}>
+          <ThemedIcon name="menu" size={24} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -37,30 +58,35 @@ export default HomeHeader;
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-    display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 16,
+    width: '100%',
   },
   leftContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
   },
+  leftContainerRTL: {
+    flexDirection: 'row-reverse', // Reverse direction for RTL
+  },
   image: {
     height: 40,
     width: 40,
   },
+  textContainer: {
+    alignItems: I18nManager.isRTL ? 'flex-end' : 'flex-start',
+  },
   headerTitle: {
-    color: colors.white,
-    fontSize: typography.fontSizes.large,
-    fontWeight: typography.fontWeights.bold,
-    fontFamily: typography.fontFamilies.mullish,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   headerSubTitle: {
-    color: colors.white,
-    fontSize: typography.fontSizes.medium,
-    fontWeight: typography.fontWeights.regular400,
-    fontFamily: typography.fontFamilies.mullish,
+    fontSize: 14,
+    fontWeight: '400',
   },
-  rightContainer: {},
+  menuButton: {
+    padding: 8,
+  },
 });

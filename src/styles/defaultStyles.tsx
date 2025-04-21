@@ -76,7 +76,6 @@ const defaultStyles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-
     elevation: 2,
   },
   primaryButton: {
@@ -143,7 +142,7 @@ const defaultStyles = StyleSheet.create({
     color: colors.black,
   },
   statusBadge: {
-    backgroundColor: colors.warning,
+    backgroundColor: colors.grayHue,
     color: colors.black,
   },
   drawerHeading: {

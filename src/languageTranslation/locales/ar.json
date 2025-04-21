@@ -11,5 +11,16 @@
   "Forgot Password": "هل نسيت كلمة السر",
   "Login": "تسجيل الدخول",
   "Enter your Iqama": "أدخل الإقامة الخاصة بك",
-  "Enter your password": "أدخل كلمة المرور الخاصة بك"
+  "Enter your password": "أدخل كلمة المرور الخاصة بك",
+  "Enter your Username and Password to login": "أدخل اسم المستخدم وكلمة المرور لتسجيل الدخول",
+  "Iqama ID": "رقم الإقامة",
+  "Welcome to ajeek": "مرحبا بك في ajeek",
+  "Guest": "زائر",
+  "Home": "الرئيسية",
+  "Requests": "الطلبات",
+  "Profile": "الحساب",
+  "Settings": "الإعدادات",
+  "Logout": "تسجيل الخروج",
+  "Chats": "المحادثات",
+  "Alerts": "الإشعارات"
 }
