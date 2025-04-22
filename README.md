@@ -2,7 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
@@ -77,3 +77,45 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+## How to Rename the App
+
+To rename the app, run the following command:
+
+```bash
+npx react-native-rename "Boiler Plate" --iosBundleID "com.boilerplate.app" --androidBundleID "com.boilerplate.app"
+```
+
+After renaming, follow these steps:
+
+1. Clean and install dependencies:
+
+```bash
+rm -rf node_modules
+yarn install
+```
+
+2. For iOS:
+
+```bash
+cd ios
+pod install
+cd ..
+```
+
+3. For Android:
+
+```bash
+cd android
+./gradlew clean
+cd ..
+```
+
+4. Rebuild your app:
+
+```bash
+npx react-native run-android
+npx react-native run-ios
+```
+
+**Note:** Make sure to commit all your changes before renaming the app.
