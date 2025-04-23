@@ -13,7 +13,6 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
     },
-    // Add your ignore patterns here instead of using .eslintignore
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.next/**'],
   },
 ];
