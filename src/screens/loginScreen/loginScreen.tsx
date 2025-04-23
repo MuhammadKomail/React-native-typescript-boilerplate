@@ -108,7 +108,7 @@ const LoginScreen = () => {
         source={imgPath.backgroundImg}
         style={[defaultStyles.bgImg, {width, height}]}
         resizeMode="cover">
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={[styles.container]}>
           <SafeAreaView style={[styles.container]}>
             <View
               style={[

@@ -19,6 +19,7 @@ import {showToast} from '../utils/toast';
 import {tokenStorage} from '../services/storage';
 import {ThemedIcon} from '../components/ThemedIcon';
 import {lightTheme} from '../theme/theme';
+import {useTranslation} from 'react-i18next';
 
 type RootDrawerParamList = {
   Home: undefined;
@@ -82,6 +83,8 @@ const CustomDrawer = (props: any) => {
 
   const isRTL = I18nManager.isRTL;
 
+  const {t} = useTranslation();
+
   return (
     <DrawerContentScrollView
       {...props}
@@ -89,7 +92,7 @@ const CustomDrawer = (props: any) => {
         styles.drawerContentContainer,
         {
           backgroundColor:
-            theme === 'dark' ? lightTheme.border : lightTheme.background,
+            theme === 'dark' ? colors.black : lightTheme.background,
         },
       ]}>
       {/* Header Section */}
@@ -104,12 +107,13 @@ const CustomDrawer = (props: any) => {
             styles.iconButton,
             {
               backgroundColor:
-                theme === 'dark' ? lightTheme.border : colors.lightGray,
+                theme === 'dark' ? colors.white : colors.grayDark,
             },
           ]}>
           <ThemedIcon
             name={isRTL ? 'chevron-right' : 'chevron-left'}
             size={24}
+            color={theme === 'dark' ? colors.black : colors.white}
           />
         </TouchableOpacity>
 
@@ -118,8 +122,7 @@ const CustomDrawer = (props: any) => {
           style={[
             styles.iconButton,
             {
-              backgroundColor:
-                theme === 'dark' ? lightTheme.border : colors.lightGray,
+              backgroundColor: theme === 'dark' ? colors.black : colors.white,
             },
           ]}>
           <ThemedIcon
@@ -135,8 +138,7 @@ const CustomDrawer = (props: any) => {
           style={[
             styles.avatarContainer,
             {
-              backgroundColor:
-                theme === 'dark' ? lightTheme.border : colors.lightGray,
+              backgroundColor: theme === 'dark' ? colors.black : colors.white,
             },
           ]}>
           <ThemedIcon name="account-circle" size={80} />
@@ -144,16 +146,16 @@ const CustomDrawer = (props: any) => {
         <Text
           style={[
             styles.profileName,
-            {color: theme === 'dark' ? lightTheme.text : colors.black},
+            {color: theme === 'dark' ? colors.white : colors.black},
           ]}>
-          User Name
+          {t('user_name')}
         </Text>
         <Text
           style={[
             styles.profileEmail,
-            {color: theme === 'dark' ? lightTheme.text : colors.gray},
+            {color: theme === 'dark' ? colors.white : colors.gray},
           ]}>
-          user@example.com
+          {t('user_email')}
         </Text>
       </View>
 
@@ -161,8 +163,7 @@ const CustomDrawer = (props: any) => {
         style={[
           styles.divider,
           {
-            backgroundColor:
-              theme === 'dark' ? lightTheme.border : colors.lightGray,
+            backgroundColor: theme === 'dark' ? colors.black : colors.white,
           },
         ]}
       />
@@ -173,12 +174,12 @@ const CustomDrawer = (props: any) => {
           style={[
             styles.sectionTitle,
             {
-              color: theme === 'dark' ? lightTheme.text : colors.gray,
+              color: theme === 'dark' ? colors.white : colors.black,
               width: '100%',
               textAlign: isRTL ? 'right' : 'left',
             },
           ]}>
-          Account
+          {t('account')}
         </Text>
         {upperDrawerData.map((item, index) => (
           <TouchableOpacity
@@ -203,10 +204,10 @@ const CustomDrawer = (props: any) => {
                 {
                   flex: 1,
                   textAlign: isRTL ? 'right' : 'left',
-                  color: theme === 'dark' ? lightTheme.text : colors.gray,
+                  color: theme === 'dark' ? colors.white : colors.black,
                 },
               ]}>
-              {item.name}
+              {t(item.name)}
             </Text>
           </TouchableOpacity>
         ))}
@@ -215,8 +216,7 @@ const CustomDrawer = (props: any) => {
           style={[
             styles.divider,
             {
-              backgroundColor:
-                theme === 'dark' ? lightTheme.border : colors.lightGray,
+              backgroundColor: theme === 'dark' ? colors.black : colors.white,
             },
           ]}
         />
@@ -226,12 +226,12 @@ const CustomDrawer = (props: any) => {
           style={[
             styles.sectionTitle,
             {
-              color: theme === 'dark' ? lightTheme.text : colors.gray,
+              color: theme === 'dark' ? colors.white : colors.black,
               width: '100%',
               textAlign: isRTL ? 'right' : 'left',
             },
           ]}>
-          Legal
+          {t('legal')}
         </Text>
         {bottomDrawerData.map((item, index) => (
           <TouchableOpacity
@@ -255,10 +255,10 @@ const CustomDrawer = (props: any) => {
                 {
                   flex: 1,
                   textAlign: isRTL ? 'right' : 'left',
-                  color: theme === 'dark' ? lightTheme.text : colors.gray,
+                  color: theme === 'dark' ? colors.white : colors.black,
                 },
               ]}>
-              {item.name}
+              {t(item.name)}
             </Text>
           </TouchableOpacity>
         ))}
@@ -271,11 +271,11 @@ const CustomDrawer = (props: any) => {
           styles.logoutBtn,
           {
             backgroundColor:
-              theme === 'dark' ? lightTheme.border : colors.lightGray,
+              theme === 'dark' ? lightTheme.background : colors.lightGray,
           },
         ]}>
         <ThemedIcon name="logout" size={24} color={colors.tertiary} />
-        <Text style={styles.logoutText}>Logout</Text>
+        <Text style={styles.logoutText}>{t('logout')}</Text>
       </TouchableOpacity>
     </DrawerContentScrollView>
   );

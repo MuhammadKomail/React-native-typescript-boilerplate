@@ -24,10 +24,6 @@ const getIconName = (routeName: string, focused: boolean) => {
   switch (routeName) {
     case 'Home':
       return focused ? 'home-sharp' : 'home-outline';
-    case 'Alerts':
-      return focused ? 'notifications-sharp' : 'notifications-outline';
-    case 'Tickets':
-      return 'ticket-sharp';
     case 'Profile':
       return focused ? 'person-sharp' : 'person-outline';
     case 'Chats':
