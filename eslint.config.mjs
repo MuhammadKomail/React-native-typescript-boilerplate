@@ -1,5 +1,5 @@
-import globals from 'globals';
-import js from '@eslint/js';
+import globals from "globals";
+import js from "@eslint/js";
 
 export default [
   {
@@ -7,6 +7,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
+        ...globals.jest,
       },
     },
     rules: {

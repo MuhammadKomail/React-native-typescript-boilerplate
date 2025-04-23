@@ -1,7 +1,0 @@
-# Ignore build and dependency directories
-node_modules/
-android/
-ios/
-build/
-dist/
-coverage/
