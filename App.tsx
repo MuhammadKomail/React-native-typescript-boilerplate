@@ -1,0 +1,44 @@
+import './gesture-handler';
+
+import React from 'react';
+import Navigation from './src/navigation/mainNavigation';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistor, store} from './src/redux/store';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {ToastProvider, useToast} from 'react-native-toast-notifications';
+import {setToastRef} from './src/utils/toast';
+import {ThemeProvider} from './src/theme/ThemeContext';
+
+const ToastInitializer = () => {
+  const toast = useToast();
+
+  React.useEffect(() => {
+    setToastRef(toast); // Set the global toast reference
+  }, [toast]);
+
+  return null; // This component does not render anything
+};
+
+function App(): React.JSX.Element {
+  return (
+    <ThemeProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <GestureHandlerRootView>
+            <ToastProvider
+                offset={110}
+                duration={3000}
+                placement="bottom"
+                successColor="#01BCCD">
+                <ToastInitializer />
+                <Navigation />
+              </ToastProvider>
+          </GestureHandlerRootView>
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
+  );
+}
+
+export default App;
