@@ -1,4 +1,45 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native TypeScript Boilerplate
+
+A production-ready [**React Native**](https://reactnative.dev) boilerplate bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli), pre-configured for TypeScript, ESLint, Prettier, and a scalable folder structure. Designed for rapid mobile app development with best practices out of the box.
+
+---
+
+## Project Overview
+
+- **Framework:** React Native (TypeScript)
+- **State Management:** Redux Toolkit
+- **Navigation:** React Navigation
+- **Testing:** Jest
+- **Linting/Formatting:** ESLint, Prettier, Husky, lint-staged
+- **Other:** Modular structure, ready for theming, localization, and scalable features.
+
+---
+
+## Folder Structure
+
+```
+├── App.tsx                # App entry point
+├── src/
+│   ├── assets/            # Images, fonts, etc.
+│   ├── components/        # Reusable UI components
+│   ├── hooks/             # Custom React hooks
+│   ├── navigation/        # Navigation setup
+│   ├── redux/             # Redux slices, store config
+│   ├── screens/           # App screens
+│   ├── services/          # API and business logic
+│   ├── styles/            # Common styles
+│   ├── theme/             # Theme and color definitions
+│   ├── types/             # TypeScript types/interfaces
+│   └── utils/             # Utility functions
+├── android/               # Native Android code
+├── ios/                   # Native iOS code
+├── .eslintrc.js           # ESLint config
+├── .prettierrc.js         # Prettier config
+├── tsconfig.json          # TypeScript config
+├── package.json           # Project manifest
+```
+
+---
 
 # Getting Started
 
@@ -72,11 +113,34 @@ If you can't get this to work, see the [Troubleshooting](https://reactnative.dev
 
 To learn more about React Native, take a look at the following resources:
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [React Native Website](https://reactnative.dev)
+- [Getting Started](https://reactnative.dev/docs/environment-setup)
+- [Learn the Basics](https://reactnative.dev/docs/getting-started)
+- [Blog](https://reactnative.dev/blog)
+- [`@facebook/react-native`](https://github.com/facebook/react-native)
+
+---
+
+## Assumptions & Known Issues
+
+- Assumes you have Node.js, Yarn or npm, and a working React Native environment (see prerequisites).
+- Xcode required for iOS builds (macOS only).
+- Android Studio required for Android builds.
+- Some dependencies may require additional linking or setup (see their docs).
+- If you encounter issues, check the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) guide.
+
+---
+
+## Improvements Planned
+
+- Add CI/CD pipeline (GitHub Actions)
+- Improve testing coverage (add Detox for E2E)
+- Add sample API integration
+- Enhance documentation (architecture, theming, localization)
+- Add sample custom hooks and components
+- Expand ESLint/Prettier rules for stricter code quality
+
+---
 
 ## How to Rename the App
 
