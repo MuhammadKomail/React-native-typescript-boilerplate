@@ -1,28 +1,29 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Dimensions} from 'react-native';
-import HomeScreen from '../screens/homeScreen/homeScreen';
-import BookmarksScreen from '../screens/bookmarksScreen/bookmarksScreen';
-import NewsDetailScreen from '../screens/newsDetailScreen/newsDetailScreen';
+import {I18nManager, Dimensions} from 'react-native';
+import CustomDrawer from './customDrawer';
+import BottomTab from './bottomTabNavigation';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
+  const isRTL = I18nManager.isRTL;
 
   return (
     <Drawer.Navigator
       defaultStatus="closed"
+      drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         headerShown: false,
-        drawerPosition: 'right',
+        drawerPosition: isRTL ? 'left' : 'right',
         drawerType: 'front',
         drawerStyle: {
           width: Dimensions.get('window').width * 0.85,
           backgroundColor: 'white',
-          right: 0,
+          [isRTL ? 'left' : 'right']: 0,
           transform: [
             {
-              translateX: 20,
+              translateX: isRTL ? 20 : -20,
             },
           ],
         },
@@ -30,22 +31,8 @@ const DrawerNavigation = () => {
         overlayColor: 'rgba(0,0,0,0.5)',
       }}>
       <Drawer.Screen
-        name="Home-Screen"
-        component={HomeScreen} 
-        options={{
-          swipeEnabled: false,
-        }}
-      />
-      <Drawer.Screen
-        name="Bookmarks-Screen"
-        component={BookmarksScreen}
-        options={{
-          swipeEnabled: false,
-        }}
-      />
-      <Drawer.Screen
-        name="NewsDetail"
-        component={NewsDetailScreen}
+        name="home-tabs"
+        component={BottomTab}
         options={{
           swipeEnabled: false,
         }}

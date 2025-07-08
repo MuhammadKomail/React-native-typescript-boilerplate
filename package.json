@@ -1,5 +1,5 @@
 {
-  "name": "newsapp",
+  "name": "boilerplate",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -29,7 +29,6 @@
     "@react-navigation/drawer": "^7.1.1",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
-    "@react-navigation/stack": "^7.3.2",
     "@reduxjs/toolkit": "^2.5.0",
     "@shopify/flash-list": "^1.7.2",
     "@shopify/react-native-skia": "^1.11.18",

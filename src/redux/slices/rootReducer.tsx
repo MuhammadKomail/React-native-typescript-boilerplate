@@ -1,21 +1,19 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import authReducer from './authSlice/authSlice';
-import newsReducer from './newsSlice/newsSlice';
+import {reduxStorage} from '../../services/storage';
+// import authSlice from './authSlice/authSlice';
+import translationSlice from './translationSlice/translationSlice';
 
-// Persist config for auth
-const authPersistConfig = {
-  key: 'auth',
-  storage: AsyncStorage,
-  whitelist: ['user', 'token'], // only persist these fields
+const persistConfig = {
+  key: 'root',
+  storage: reduxStorage,
+  whitelist: ['authState'],
+  // debug:true
 };
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
-  news: newsReducer,
+  // authState: authSlice,
+  translationState: translationSlice,
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
-
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

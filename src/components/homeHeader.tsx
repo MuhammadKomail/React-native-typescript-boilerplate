@@ -3,78 +3,52 @@ import {
   View,
   Image,
   TouchableOpacity,
-
+  I18nManager,
 } from 'react-native';
 import React from 'react';
-import {imgPath, colors} from '../styles/style';
+import {imgPath} from '../styles/style';
 import {ThemedText} from './ThemedComponents';
 import {ThemedIcon} from './ThemedIcon';
-import {useStyledTheme} from '../hooks/useStyledTheme';
-import {useTheme} from '../theme/ThemeContext';
-import { useNavigation } from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
-const HomeHeader: React.FC = () => {
+interface HomeHeaderProps {
+  title: string;
+  drawer: () => void;
+}
 
-  const {colors, theme} = useStyledTheme();
-  const {toggleTheme} = useTheme();
-  const navigation = useNavigation();
+const HomeHeader: React.FC<HomeHeaderProps> = ({title, drawer}) => {
+  const isRTL = I18nManager.isRTL;
+  const {t} = useTranslation();
 
   return (
     <View style={styles.headerContainer}>
+      {/* Menu button for RTL */}
+      {isRTL && (
+        <TouchableOpacity onPress={drawer} style={styles.menuButton}>
+          <ThemedIcon name="menu" size={24} />
+        </TouchableOpacity>
+      )}
 
-
-      <View style={styles.leftContainer}>
+      <View style={[styles.leftContainer, isRTL && styles.leftContainerRTL]}>
         <Image
           source={imgPath.logo}
           style={styles.image}
           resizeMode="contain"
         />
         <View style={styles.textContainer}>
-          <ThemedText style={styles.headerTitle}>Guest</ThemedText>
+          <ThemedText style={styles.headerTitle}>{t(title)}</ThemedText>
           <ThemedText style={styles.headerSubTitle}>
-            Welcome to News
+            {t('Welcome to ajeek')}
           </ThemedText>
         </View>
       </View>
 
-      {/* Theme toggle button */}
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Bookmarks-Screen' as never)}
-          style={[
-            styles.menuButton,
-            {
-              backgroundColor: theme === 'dark' ? colors.black : colors.white,
-              borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginRight: 8,
-            },
-          ]}
-        >
-          <ThemedIcon
-            name="bookmark"
-            size={24}
-          />
+      {/* Menu button for LTR */}
+      {!isRTL && (
+        <TouchableOpacity onPress={drawer} style={styles.menuButton}>
+          <ThemedIcon name="menu" size={24} />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={toggleTheme}
-          style={[
-            styles.menuButton,
-            {
-              backgroundColor: theme === 'dark' ? colors.black : colors.white,
-              borderRadius: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-          ]}
-        >
-          <ThemedIcon
-            name={theme === 'dark' ? 'light-mode' : 'dark-mode'}
-            size={24}
-          />
-        </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 };
@@ -94,13 +68,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
   },
-
+  leftContainerRTL: {
+    flexDirection: 'row-reverse', // Reverse direction for RTL
+  },
   image: {
     height: 40,
     width: 40,
   },
   textContainer: {
-    alignItems: 'flex-start',
+    alignItems: I18nManager.isRTL ? 'flex-end' : 'flex-start',
   },
   headerTitle: {
     fontSize: 18,
@@ -112,6 +88,5 @@ const styles = StyleSheet.create({
   },
   menuButton: {
     padding: 8,
-    marginHorizontal: 0,
   },
 });

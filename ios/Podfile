@@ -14,7 +14,9 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'NewsApp' do
+project 'BoilerPlate.xcodeproj'
+
+target 'BoilerPlate' do
   config = use_native_modules!
 
   use_react_native!(
@@ -23,7 +25,7 @@ target 'NewsApp' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'NewsAppTests' do
+  target 'BoilerPlateTests' do
     inherit! :complete
     # Pods for testing
   end

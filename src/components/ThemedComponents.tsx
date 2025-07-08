@@ -27,10 +27,9 @@ export const ThemedView: React.FC<{
 };
 
 // Themed Text Component
-import { StyleProp } from 'react-native';
 export const ThemedText: React.FC<{
   children: React.ReactNode;
-  style?: StyleProp<TextStyle>;
+  style?: TextStyle;
 }> = ({children, style}) => {
   const {colors} = useStyledTheme();
   return (

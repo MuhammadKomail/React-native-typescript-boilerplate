@@ -32,10 +32,6 @@ export const lightTheme = {
   statusWarning: '#FFC107',
   statusError: '#DC3545',
   statusInfo: '#17A2B8',
-
-  // Additional Colors
-  black: '#000000',
-  white: '#FFFFFF',
 };
 
 export const darkTheme = {
@@ -73,10 +69,6 @@ export const darkTheme = {
   statusWarning: '#FFD60A',
   statusError: '#FF453A',
   statusInfo: '#0A84FF',
-
-  // Additional Colors
-  black: '#000000',
-  white: '#FFFFFF',
 };
 
 export type Theme = typeof lightTheme;

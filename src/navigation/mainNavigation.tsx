@@ -5,12 +5,15 @@ import {
   DarkTheme,
 } from '@react-navigation/native';
 import navigationService from './navigationService';
+import StackNavigation from './stackNavigation';
 import DrawerNavigation from './drawerNavigation';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {RootState, useAppSelector} from '../redux/store';
 import {ThemeProvider, useTheme} from '../theme/ThemeContext';
 import {lightTheme, darkTheme} from '../theme/theme';
 
 const NavigationContent = () => {
+  const {user} = useAppSelector((state: RootState) => state.auth);
   const {theme} = useTheme();
 
   const navigationTheme =
@@ -34,7 +37,7 @@ const NavigationContent = () => {
     <NavigationContainer
       theme={navigationTheme}
       ref={ref => navigationService.setTopLevelNavigator(ref)}>
-      <DrawerNavigation />
+      {!user ? <StackNavigation /> : <DrawerNavigation />}
     </NavigationContainer>
   );
 };
