@@ -13,8 +13,8 @@ import OfflineScreen from '../screens/offlineScreen/offlineScreen';
 const screenData = [
   {
     id: 1,
-    screenName: 'login-screen',
-    componentName: LoginScreen,
+    screenName: 'language-selection',
+    componentName: LanguageSelection,
   },
   {
     id: 2,
@@ -23,8 +23,8 @@ const screenData = [
   },
   {
     id: 3,
-    screenName: 'language-selection',
-    componentName: LanguageSelection,
+    screenName: 'login-screen',
+    componentName: LoginScreen,
   },
 ];
 
