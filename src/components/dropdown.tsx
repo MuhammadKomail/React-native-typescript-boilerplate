@@ -7,7 +7,6 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialIcons from '@react-native-vector-icons/material-icons';
 
 const LANGUAGE_KEY = 'selectedLanguage';
@@ -43,8 +42,6 @@ const CustomDropdown = ({
 
     setSelectedItem(item);
     onSelect(item);
-
-    await AsyncStorage.setItem(LANGUAGE_KEY, item);
 
     setIsAnimating(true);
     Animated.parallel([

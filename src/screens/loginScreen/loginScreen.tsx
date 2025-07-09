@@ -2,7 +2,6 @@ import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
   Image,
   TextInput,
   SafeAreaView,
@@ -15,20 +14,19 @@ import {
 } from 'react-native';
 
 // Suppress lint rules for dynamic styles and types in this screen
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {colors, defaultStyles, imgPath, typography} from '../../styles/style';
 import Button from '../../components/button';
-import Checkbox from '../../components/checkbox';
 import {useTranslation} from 'react-i18next';
 import Icon from '@react-native-vector-icons/material-icons';
 import {showToast} from '../../utils/toast';
 import {lightTheme} from '../../theme/theme';
 import {RootState, useAppDispatch, useAppSelector} from '../../redux/store';
-import {loginUser} from '../../redux/slices/authSlice/authSlice';
 import {useTheme} from '../../theme/ThemeContext';
+import {loginUser} from '../../redux/actions/authAction/authAction';
 
 interface Login {
-  iqamaId: string;
+  name: string;
   password: string;
   showPassword: boolean;
   rememberMe: boolean;
@@ -41,48 +39,21 @@ const LoginScreen = () => {
   const {theme} = useTheme();
 
   const [formStates, setFormStates] = useState<Login>({
-    iqamaId: '',
+    name: '',
     password: '',
     showPassword: false,
     rememberMe: false,
   });
 
-  const [currentDate, setCurrentDate] = useState(new Date());
-
   const dispatch = useAppDispatch();
-  const {isLoading, error, lastLoginDate} = useAppSelector(
-    (state: RootState) => state.auth,
-  ) || {isLoading: false, error: null, lastLoginDate: null};
 
-  // Update current date every second
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true,
-    };
-
-    return date.toLocaleDateString(isRTL ? 'ar-SA' : 'en-US', options);
-  };
+  const {loading} = useAppSelector((state: RootState) => state.auth);
 
   const submitForm = () => {
-    if (formStates.iqamaId === '') {
+    if (formStates.name === '') {
       showToast({
         type: 'danger',
-        message: 'Iqama ID is required',
+        message: 'User name is required',
       });
     } else if (formStates.password === '') {
       showToast({
@@ -92,41 +63,25 @@ const LoginScreen = () => {
     } else {
       dispatch(
         loginUser({
-          username: formStates.iqamaId,
-          password: formStates.password,
+          data: {
+            name: formStates.name,
+            password: formStates.password,
+          },
         }),
-      ).then(result => {
-        if (loginUser.fulfilled.match(result)) {
-        }
-      });
+      );
     }
   };
 
   return (
     <>
-      <ImageBackground
-        source={imgPath.backgroundImg}
-        style={[defaultStyles.bgImg, {width, height}]}
-        resizeMode="cover">
-        <ScrollView contentContainerStyle={[styles.container]}>
+      <ScrollView contentContainerStyle={[styles.container]}>
+        {loading ? (
+          <ActivityIndicator
+            size="large"
+            color={theme === 'dark' ? lightTheme.text : colors.black}
+          />
+        ) : (
           <SafeAreaView style={[styles.container]}>
-            <View
-              style={[
-                styles.dateContainer,
-                {
-                  backgroundColor:
-                    theme === 'dark' ? lightTheme.background : colors.white,
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.dateText,
-                  {color: theme === 'dark' ? lightTheme.text : colors.black},
-                ]}>
-                {formatDate(currentDate)}
-              </Text>
-            </View>
-
             <Image
               source={imgPath.logo}
               style={[defaultStyles.image]}
@@ -154,17 +109,6 @@ const LoginScreen = () => {
                     theme === 'dark' ? lightTheme.background : undefined,
                 },
               ]}>
-              {lastLoginDate && (
-                <View style={styles.lastLoginContainer}>
-                  <Text style={styles.lastLoginText}>
-                    {t('Last Login')}:{' '}
-                    {new Date(lastLoginDate).toLocaleString(
-                      isRTL ? 'ar-SA' : 'en-US',
-                    )}
-                  </Text>
-                </View>
-              )}
-
               <Text
                 style={[
                   styles.textStyles,
@@ -183,9 +127,9 @@ const LoginScreen = () => {
                     color: theme === 'dark' ? lightTheme.text : colors.black,
                   },
                 ]}
-                value={formStates.iqamaId}
+                value={formStates.name}
                 onChangeText={text =>
-                  setFormStates({...formStates, iqamaId: text})
+                  setFormStates({...formStates, name: text})
                 }
                 placeholder={t('Enter your Iqama ID')}
                 placeholderTextColor={
@@ -224,7 +168,14 @@ const LoginScreen = () => {
                   }
                   textAlign={isRTL ? 'right' : 'left'}
                 />
-                <TouchableOpacity style={styles.eyeIcon}>
+                <TouchableOpacity
+                  style={styles.eyeIcon}
+                  onPress={() =>
+                    setFormStates({
+                      ...formStates,
+                      showPassword: !formStates.showPassword,
+                    })
+                  }>
                   <Icon
                     name={
                       formStates.showPassword ? 'visibility' : 'visibility-off'
@@ -234,52 +185,11 @@ const LoginScreen = () => {
                   />
                 </TouchableOpacity>
               </View>
-              <View style={styles.secondContainer}>
-                <View style={styles.rememberMeContainer}>
-                  <Checkbox
-                    checked={formStates.rememberMe}
-                    onPress={() =>
-                      setFormStates({
-                        ...formStates,
-                        rememberMe: !formStates.rememberMe,
-                      })
-                    }
-                  />
-                  <Text
-                    style={[
-                      styles.textStyles,
-                      {
-                        color:
-                          theme === 'dark' ? lightTheme.text : colors.black,
-                      },
-                    ]}>
-                    {t('Remember me')}
-                  </Text>
-                </View>
-                <TouchableOpacity>
-                  <Text style={[styles.forgotPassword]}>
-                    {t('Forgot Password')}?
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <Button
-                title={isLoading ? t('Logging in...') : t('Login')}
-                onPress={submitForm}
-                disabled={isLoading}
-              />
-
-              {isLoading && (
-                <ActivityIndicator
-                  size="large"
-                  color={theme === 'dark' ? lightTheme.text : colors.primary}
-                />
-              )}
-
-              {error && <Text style={styles.errorText}>{error}</Text>}
+              <Button title={t('Login')} onPress={submitForm} />
             </View>
           </SafeAreaView>
-        </ScrollView>
-      </ImageBackground>
+        )}
+      </ScrollView>
     </>
   );
 };

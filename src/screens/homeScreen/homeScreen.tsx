@@ -6,7 +6,6 @@ import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {ThemedView} from '../../components/ThemedComponents';
 import HomeHeader from '../../components/homeHeader';
 import HomeSearch from '../../components/homeSearch';
-import RequestCard from '../../components/requestCard';
 
 const HomeScreen = () => {
   const insets = useSafeAreaInsets();
@@ -23,9 +22,7 @@ const HomeScreen = () => {
         <HomeSearch />
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContent}>
-          <RequestCard />
-        </ScrollView>
+          contentContainerStyle={styles.scrollContent}></ScrollView>
       </View>
     </ThemedView>
   );

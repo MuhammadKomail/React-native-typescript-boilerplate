@@ -13,7 +13,7 @@ import {ThemeProvider, useTheme} from '../theme/ThemeContext';
 import {lightTheme, darkTheme} from '../theme/theme';
 
 const NavigationContent = () => {
-  const {user} = useAppSelector((state: RootState) => state.auth);
+  const {user, token} = useAppSelector((state: RootState) => state.auth);
   const {theme} = useTheme();
 
   const navigationTheme =
@@ -37,7 +37,7 @@ const NavigationContent = () => {
     <NavigationContainer
       theme={navigationTheme}
       ref={ref => navigationService.setTopLevelNavigator(ref)}>
-      {!user ? <StackNavigation /> : <DrawerNavigation />}
+      {!user && !token ? <StackNavigation /> : <DrawerNavigation />}
     </NavigationContainer>
   );
 };

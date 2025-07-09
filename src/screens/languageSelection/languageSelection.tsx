@@ -9,9 +9,9 @@ import {useAppDispatch} from '../../redux/store';
 import {changeLanguage} from '../../redux/slices/translationSlice/translationSlice';
 import {useTranslation} from 'react-i18next';
 import RNRestart from 'react-native-restart';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useTheme} from '../../theme/ThemeContext';
 import {lightTheme} from '../../theme/theme';
+import {tokenStorage} from '../../services/storage';
 
 const LanguageSelection = () => {
   const {theme} = useTheme();
@@ -28,7 +28,7 @@ const LanguageSelection = () => {
   useEffect(() => {
     const loadSavedLanguage = async () => {
       try {
-        const savedLang = await AsyncStorage.getItem('selectedLanguage');
+        const savedLang = tokenStorage.getToken();
         if (savedLang) {
           setLanguageSelection(savedLang);
           await i18n.changeLanguage(savedLang);
@@ -56,12 +56,12 @@ const LanguageSelection = () => {
       const updateLanguage = async () => {
         try {
           // Pehle check karein ke current language different hai
-          const currentLang = await AsyncStorage.getItem('selectedLanguage');
+          const currentLang = tokenStorage.getToken();
           if (currentLang === languageSelection) {
             return; // Agar same language hai to kuch na karein
           }
 
-          await AsyncStorage.setItem('selectedLanguage', languageSelection);
+          await tokenStorage.saveToken(languageSelection);
           await i18n.changeLanguage(languageSelection);
           I18nManager.forceRTL(i18n.language === 'ar');
           dispatch(changeLanguage(languageSelection));

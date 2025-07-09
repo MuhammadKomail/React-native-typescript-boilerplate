@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {tokenStorage} from '../services/storage';
 
 type Theme = 'light' | 'dark';
 
@@ -22,7 +22,7 @@ export const ThemeProvider: React.FC<{children: React.ReactNode}> = ({
 
   const loadTheme = async () => {
     // try {
-    const savedTheme = await AsyncStorage.getItem('appTheme');
+    const savedTheme = tokenStorage.getToken();
     if (savedTheme) {
       setTheme(savedTheme as Theme);
     }
@@ -31,14 +31,10 @@ export const ThemeProvider: React.FC<{children: React.ReactNode}> = ({
     // }
   };
 
-  const toggleTheme = async () => {
-    // try {
+  const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
-    await AsyncStorage.setItem('appTheme', newTheme);
+    tokenStorage.saveToken(newTheme);
     setTheme(newTheme);
-    // } catch (error) {
-    //   throw error;
-    // }
   };
 
   return (

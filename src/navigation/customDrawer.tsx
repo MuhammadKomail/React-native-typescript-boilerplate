@@ -13,7 +13,7 @@ import {colors} from '../styles/style';
 import {useNavigation, DrawerActions} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {useAppDispatch} from '../redux/store';
-import {logout} from '../redux/slices/authSlice/authSlice';
+import {logout} from '../redux/actions/authAction/authAction';
 import {useTheme} from '../theme/ThemeContext';
 import {showToast} from '../utils/toast';
 import {tokenStorage} from '../services/storage';
@@ -70,15 +70,11 @@ const CustomDrawer = (props: any) => {
     closeDrawer();
     // Dispatch Redux logout action
     dispatch(logout());
-    // Clear tokens from storage
-    tokenStorage.clearTokens();
     // Show success message
     showToast({
       type: 'success',
       message: 'Logged out successfully',
     });
-    // Navigate to login screen
-    // navigation.navigate('login-screen');
   };
 
   const isRTL = I18nManager.isRTL;

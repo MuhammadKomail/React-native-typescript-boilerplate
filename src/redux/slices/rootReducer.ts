@@ -1,13 +1,13 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import translationReducer from './translationSlice/translationSlice';
 import authReducer from './authSlice/authSlice';
+import {reduxStorage} from '../../services/storage';
 
 // Persist config for auth
 const authPersistConfig = {
   key: 'auth',
-  storage: AsyncStorage,
+  storage: reduxStorage,
   whitelist: ['user', 'token'], // only persist these fields
 };
 

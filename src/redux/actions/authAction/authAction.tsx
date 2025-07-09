@@ -1,47 +1,27 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {
-  LoginData,
-  LoginResponse,
-  UserDataResponse,
-} from '../../../types/authTypes';
-import api from '../../../services/api';
-import axios from 'axios';
+import {createAction} from '@reduxjs/toolkit';
+import {data} from '../../../types/auth.type';
 
-// Thunk to handle login
-export const loginUser = createAsyncThunk<UserDataResponse | null, LoginData>(
-  'screen/loginScreen',
-  async (userData, {rejectWithValue}) => {
+// Synchronous logout action
+export const logout = createAction('auth/logout');
+
+// Async thunk for login
+export const loginUser = createAsyncThunk(
+  'auth/login',
+  async (credentials: {data: data}, {rejectWithValue}) => {
     try {
-      const response = await api({
-        method: 'POST',
-        url: '/Auth/IAuthFeature/LoginByIqama',
-        data: userData,
-      });
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Validate response status
-      if (response.status !== 200) {
-        const errorMessage =
-          response.data?.message ||
-          `Login failed with status ${response.status}`;
-        return rejectWithValue(errorMessage);
-      }
-
-      // Parse and validate response data
-      const result: LoginResponse = response.data;
-      if (!result.isRequestSuccess) {
-        return rejectWithValue(result.message || 'Request was not successful');
-      }
-
-      return result.data as UserDataResponse;
+      const response = {
+        user: {
+          name: credentials.data.name,
+          password: credentials.data.password,
+        },
+        token: 'dummy_token',
+      };
+      return response;
     } catch (error: any) {
-      // Network or unexpected error handling
-      if (axios.isAxiosError(error)) {
-        const errorMessage =
-          error.response?.data?.message ||
-          (error.code === 'ERR_NETWORK' ? 'Network Error' : error.message);
-        return rejectWithValue(errorMessage);
-      }
-      return rejectWithValue('An unexpected error occurred');
+      return rejectWithValue(error.message || 'Login failed');
     }
   },
 );

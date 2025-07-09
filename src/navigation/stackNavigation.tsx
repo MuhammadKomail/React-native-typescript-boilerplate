@@ -13,27 +13,24 @@ import OfflineScreen from '../screens/offlineScreen/offlineScreen';
 const screenData = [
   {
     id: 1,
-    screenName: 'language-selection',
-    componentName: LanguageSelection,
-  },
-  {
-    id: 2,
     screenName: 'login-screen',
     componentName: LoginScreen,
   },
   {
-    id: 3,
+    id: 2,
     screenName: 'offline-screen',
     componentName: OfflineScreen,
+  },
+  {
+    id: 3,
+    screenName: 'language-selection',
+    componentName: LanguageSelection,
   },
 ];
 
 const StackNavigation = () => {
-  // const netInfo = useNetInfo(); // Removed as unused
-
   return (
     <>
-      {/* {netInfo.isConnected ? ( */}
       <Navigator screenOptions={{headerShown: false, animation: 'fade'}}>
         {screenData.map(item => {
           return (
@@ -45,11 +42,6 @@ const StackNavigation = () => {
           );
         })}
       </Navigator>
-      {/* ) : (
-        <Navigator screenOptions={{ headerShown: false }}>
-          <Screen name="offline-screen" component={OfflineScreen} />
-        </Navigator>
-      )} */}
     </>
   );
 };
