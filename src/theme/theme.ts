@@ -1,7 +1,7 @@
 export const lightTheme = {
   // Colors
   primary: '#01BCCD',
-  background: '#FFFFFF',
+  background: '#F9FAFB',
   text: '#000000',
   card: '#F5F5F5',
   border: '#E0E0E0',
@@ -37,7 +37,7 @@ export const lightTheme = {
 export const darkTheme = {
   // Colors
   primary: '#01BCCD',
-  background: '#121212',
+  background: '#494949',
   text: '#FFFFFF',
   card: '#1E1E1E',
   border: '#2C2C2C',

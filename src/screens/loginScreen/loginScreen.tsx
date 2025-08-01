@@ -104,48 +104,9 @@ const LoginScreen = () => {
 
   return (
     <>
-      <ImageBackground
-        source={imgPath.backgroundImg}
-        style={[defaultStyles.bgImg, {width, height}]}
-        resizeMode="cover">
+      <View style={[defaultStyles.bgImg, {width, height}]}>
         <ScrollView contentContainerStyle={[styles.container]}>
           <SafeAreaView style={[styles.container]}>
-            <View
-              style={[
-                styles.dateContainer,
-                {
-                  backgroundColor:
-                    theme === 'dark' ? lightTheme.background : colors.white,
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.dateText,
-                  {color: theme === 'dark' ? lightTheme.text : colors.black},
-                ]}>
-                {formatDate(currentDate)}
-              </Text>
-            </View>
-
-            <Image
-              source={imgPath.logo}
-              style={[defaultStyles.image]}
-              resizeMode="contain"
-            />
-            <Text
-              style={[
-                defaultStyles.mainHeading,
-                {color: theme === 'dark' ? lightTheme.text : colors.black},
-              ]}>
-              {t('Sign into your account')}
-            </Text>
-            <Text
-              style={[
-                defaultStyles.subHeading,
-                {color: theme === 'dark' ? lightTheme.text : undefined},
-              ]}>
-              {t('Enter your Username and Password to login')}
-            </Text>
             <View
               style={[
                 defaultStyles.mainContainer,
@@ -154,16 +115,25 @@ const LoginScreen = () => {
                     theme === 'dark' ? lightTheme.background : undefined,
                 },
               ]}>
-              {lastLoginDate && (
-                <View style={styles.lastLoginContainer}>
-                  <Text style={styles.lastLoginText}>
-                    {t('Last Login')}:{' '}
-                    {new Date(lastLoginDate).toLocaleString(
-                      isRTL ? 'ar-SA' : 'en-US',
-                    )}
-                  </Text>
-                </View>
-              )}
+              <Image
+                source={imgPath.logo}
+                style={[defaultStyles.image]}
+                resizeMode="contain"
+              />
+              <Text
+                style={[
+                  defaultStyles.mainHeading,
+                  {color: theme === 'dark' ? lightTheme.text : colors.black},
+                ]}>
+                {t('Sign into your account')}
+              </Text>
+              <Text
+                style={[
+                  defaultStyles.subHeading,
+                  {color: theme === 'dark' ? lightTheme.text : undefined},
+                ]}>
+                {t('Enter your Username and Password to login')}
+              </Text>
 
               <Text
                 style={[
@@ -279,7 +249,7 @@ const LoginScreen = () => {
             </View>
           </SafeAreaView>
         </ScrollView>
-      </ImageBackground>
+      </View>
     </>
   );
 };

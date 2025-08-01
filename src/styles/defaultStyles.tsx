@@ -8,7 +8,7 @@ const defaultStyles = StyleSheet.create({
   },
   bgImg: {
     flex: 1,
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
   },
   mainHeading: {
     fontSize: typography.fontSizes.extraLarge,
