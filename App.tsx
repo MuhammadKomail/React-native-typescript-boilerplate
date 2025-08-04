@@ -1,6 +1,5 @@
 import './gesture-handler';
-
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import Navigation from './src/navigation/mainNavigation';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -11,18 +10,25 @@ import {ToastProvider, useToast} from 'react-native-toast-notifications';
 import i18n from './src/languageTranslation/index';
 import {setToastRef} from './src/utils/toast';
 import {ThemeProvider} from './src/theme/ThemeContext';
+import {initializeNotificationService} from './src/services/notificationService';
 
 const ToastInitializer = () => {
   const toast = useToast();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setToastRef(toast); // Set the global toast reference
   }, [toast]);
 
-  return null; // This component does not render anything
+  return null;
 };
 
 function App(): React.JSX.Element {
+  // const navigationRef = useRef<NavigationContainerRef<any>>(null);
+
+  useEffect(() => {
+    initializeNotificationService();
+  }, []);
+
   return (
     <ThemeProvider>
       <Provider store={store}>

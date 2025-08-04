@@ -14,7 +14,7 @@ const screenData = [
   {
     id: 1,
     screenName: 'language-selection',
-    componentName: LanguageSelection,
+    componentName: LoginScreen,
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const screenData = [
   {
     id: 3,
     screenName: 'login-screen',
-    componentName: LoginScreen,
+    componentName: LanguageSelection,
   },
 ];
 
