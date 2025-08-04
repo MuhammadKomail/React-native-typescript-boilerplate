@@ -8,13 +8,19 @@ const {Navigator, Screen} = Stack;
 import LanguageSelection from '../screens/languageSelection/languageSelection';
 import LoginScreen from '../screens/loginScreen/loginScreen';
 import OfflineScreen from '../screens/offlineScreen/offlineScreen';
+import audioCall from '../screens/audioCall/audioCall';
 
 // Note: array of screen data...!
 const screenData = [
   {
     id: 1,
+    screenName: 'audio-call',
+    componentName: audioCall,
+  },
+  {
+    id: 1,
     screenName: 'language-selection',
-    componentName: LanguageSelection,
+    componentName: LoginScreen,
   },
   {
     id: 2,
@@ -24,7 +30,7 @@ const screenData = [
   {
     id: 3,
     screenName: 'login-screen',
-    componentName: LoginScreen,
+    componentName: LanguageSelection,
   },
 ];
 

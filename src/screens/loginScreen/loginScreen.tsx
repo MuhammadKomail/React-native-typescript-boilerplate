@@ -1,29 +1,30 @@
+import {useTranslation} from 'react-i18next';
 import {
+  ActivityIndicator,
+  Button,
+  I18nManager,
+  Image,
+  Platform,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
-  View,
-  Image,
   TextInput,
-  SafeAreaView,
   TouchableOpacity,
-  ScrollView,
   useWindowDimensions,
-  Platform,
-  I18nManager,
-  ActivityIndicator,
+  View,
 } from 'react-native';
-
-// Suppress lint rules for dynamic styles and types in this screen
-import React, {useState} from 'react';
-import {colors, defaultStyles, imgPath, typography} from '../../styles/style';
-import Button from '../../components/button';
-import {useTranslation} from 'react-i18next';
-import Icon from '@react-native-vector-icons/material-icons';
-import {showToast} from '../../utils/toast';
-import {lightTheme} from '../../theme/theme';
-import {RootState, useAppDispatch, useAppSelector} from '../../redux/store';
 import {useTheme} from '../../theme/ThemeContext';
+import {useState} from 'react';
+import {RootState, useAppDispatch, useAppSelector} from '../../redux/store';
+import {showToast} from '../../utils/toast';
 import {loginUser} from '../../redux/actions/authAction/authAction';
+import {lightTheme} from '../../theme/theme';
+import colors from '../../styles/colors';
+import imgPath from '../../styles/imgPath';
+import defaultStyles from '../../styles/defaultStyles';
+import Icon from '@react-native-vector-icons/material-icons';
+import typography from '../../styles/typography';
 
 interface Login {
   name: string;
