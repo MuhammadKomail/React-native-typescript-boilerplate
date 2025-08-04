@@ -20,7 +20,11 @@ import App from './App';
 import {name as appName} from './app.json';
 
 // ✅ Add below for notifications:
-import messaging from '@react-native-firebase/messaging';
+import {getApp} from '@react-native-firebase/app';
+import {
+  getMessaging,
+  setBackgroundMessageHandler,
+} from '@react-native-firebase/messaging';
 import notifee, {AndroidImportance} from '@notifee/react-native';
 
 // ✅ Create default notification channel before app loads
@@ -33,8 +37,10 @@ async function setupDefaultChannel() {
 }
 setupDefaultChannel();
 
-// ✅ Handle background messages
-messaging().setBackgroundMessageHandler(async remoteMessage => {
+// ✅ Handle background messages (modular API)
+const app = getApp();
+const messaging = getMessaging(app);
+setBackgroundMessageHandler(messaging, async remoteMessage => {
   console.log('📡 [index.js] Background message received:', remoteMessage);
 
   const {notification} = remoteMessage;
@@ -51,5 +57,4 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
     });
   }
 });
-
 AppRegistry.registerComponent(appName, () => App);
