@@ -8966,10 +8966,10 @@ react-native-collapsible@^1.6.2:
   resolved "https://registry.yarnpkg.com/react-native-collapsible/-/react-native-collapsible-1.6.2.tgz#3b67fa402a6ba3c291022f5db8f345083862c3d8"
   integrity sha512-MCOBVJWqHNjnDaGkvxX997VONmJeebh6wyJxnHEgg0L1PrlcXU1e/bo6eK+CDVFuMrCafw8Qh4DOv/C4V/+Iew==
 
-react-native-config@^1.5.5:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.5.5.tgz#5977db58ff20b6fe9dd6fb28c815a9ba43d018d2"
-  integrity sha512-dGdLnBU0cd5xL5bF0ROTmHYbsstZnQKOEPfglvZi1vStvAjpld14X25K6mY3KGPTMWAzx6TbjKeq5dR+ILuMMA==
+react-native-config@^1.5.6:
+  version "1.5.6"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.5.6.tgz#78e250d769be74ac0eff0eccf99ef658f33dabbf"
+  integrity sha512-UB3LEco0FGGbbGvS+DfH2VmGKiP/y5C2MkmfBmfsIaxHSbM1KOTMKYG7YRf6xFhZbJ/01BedHG7SIny5i7N9BQ==
 
 react-native-crypto@^2.0.1:
   version "2.2.1"

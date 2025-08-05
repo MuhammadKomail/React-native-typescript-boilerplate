@@ -47,6 +47,9 @@ yarn-error.log
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
+# dotenv environment variables file
+.env
+.env.local
 **/fastlane/report.xml
 **/fastlane/Preview.html
 **/fastlane/screenshots
@@ -76,3 +79,5 @@ yarn-error.log
 
 .env
 !.env.example
+# react-native-config codegen
+ios/tmp.xcconfig

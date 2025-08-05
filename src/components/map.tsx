@@ -1,5 +1,10 @@
 import React, {useRef, useEffect, useState} from 'react';
-import MapView, {Marker, Polyline, MapViewProps} from 'react-native-maps';
+import MapView, {
+  Marker,
+  Polyline,
+  MapViewProps,
+  PROVIDER_GOOGLE,
+} from 'react-native-maps';
 import {StyleSheet, View, ActivityIndicator} from 'react-native';
 import {decodePolyline} from '../utils/polyline';
 import colors from '../styles/colors';
@@ -9,7 +14,8 @@ interface MapProps {
   endPoint: {latitude: number; longitude: number};
 }
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyC35u9CrnXwbcLT9bCjXdfQtxvPnp4P3lQ';
+import Config from 'react-native-config';
+const GOOGLE_MAPS_API_KEY = Config.GOOGLE_MAPS_API_KEY;
 
 const Map: React.FC<MapProps> = ({startPoint, endPoint}) => {
   const mapRef = useRef<MapView>(null);
@@ -63,6 +69,7 @@ const Map: React.FC<MapProps> = ({startPoint, endPoint}) => {
         </View>
       )}
       <MapView
+        provider={PROVIDER_GOOGLE}
         ref={mapRef}
         style={styles.map}
         initialRegion={{
