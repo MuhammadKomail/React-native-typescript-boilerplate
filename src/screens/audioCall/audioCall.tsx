@@ -19,7 +19,7 @@ const token =
 const channelName = 'channel-checking';
 const localUid = 0;
 
-const audioCall = () => {
+const AudioCall = () => {
   const agoraEngineRef = useRef<IRtcEngine>();
   const [isJoined, setIsJoined] = useState(false);
   const [remoteUid, setRemoteUid] = useState(0);
@@ -193,4 +193,4 @@ const audioCall = () => {
   return null;
 };
 
-export default audioCall;
+export default AudioCall;

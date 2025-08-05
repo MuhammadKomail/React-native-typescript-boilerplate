@@ -3,6 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {I18nManager, Dimensions} from 'react-native';
 import CustomDrawer from './customDrawer';
 import BottomTab from './bottomTabNavigation';
+import MapScreen from '../screens/mapScreen/mapScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +34,13 @@ const DrawerNavigation = () => {
       <Drawer.Screen
         name="home-tabs"
         component={BottomTab}
+        options={{
+          swipeEnabled: false,
+        }}
+      />
+      <Drawer.Screen
+        name="Map"
+        component={MapScreen}
         options={{
           swipeEnabled: false,
         }}

@@ -23,6 +23,7 @@ import {useTranslation} from 'react-i18next';
 
 type RootDrawerParamList = {
   Home: undefined;
+  Map: undefined;
   'help-screen': undefined;
   'privacy-screen': undefined;
   'faq-screen': undefined;
@@ -41,6 +42,11 @@ const upperDrawerData: DrawerItemType[] = [
     name: 'Home',
     icon: 'home',
     route: 'Home',
+  },
+  {
+    name: 'Map',
+    icon: 'map',
+    route: 'Map',
   },
 ];
 
